@@ -82,7 +82,8 @@ module.exports = (function () {
     });
   }
   HealthInspectionsSchema.statics.findById = function(id, callback){
-    this.findOne({_id : id}, function(err, data){
+    console.log(id);
+    this.find({_id : mongoose.Types.ObjectId(id)}, function(err, data){
       if(err){
         callback(err, null);
       } else {

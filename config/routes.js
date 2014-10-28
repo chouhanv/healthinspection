@@ -7,5 +7,6 @@
 // information.
 module.exports = function routes() {
   this.root('pages#main');
-  this.post("searchOnMap", 'pages#searchOnMap');
+  this.post("/searchOnMap", 'pages#searchOnMap');
+  this.get("/details/:id", "pages#showDetail")
 }

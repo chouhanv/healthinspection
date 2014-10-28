@@ -30,7 +30,7 @@ pagesController.searchOnMap = function(req,res){
 				if(error){
 					th.render("map", {result : null});
 				} else {
-					th.render("map", {result : data});
+					th.render("map", {result : data, center : {lat : lat , lng : lng}});
 				}
 			});
 		} else {
@@ -38,6 +38,22 @@ pagesController.searchOnMap = function(req,res){
 			th.render("main");
 		}
     });
+}
+
+pagesController.showDetail = function(req, res){
+	var th = this;
+	var id = th.req.param("id");
+	HealthInspections.findById(id, function(err, data){
+		if(err){
+			console.log(error);
+			th.res.redirect("back");
+		} else if(data){
+			console.log("data", data);
+			th.render("detail", {data:data});
+		} else {
+			th.res.redirect("back");
+		}
+	})
 }
 
 module.exports = pagesController;

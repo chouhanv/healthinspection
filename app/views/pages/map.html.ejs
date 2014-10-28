@@ -12,8 +12,8 @@
     <![endif]-->
     <link href="css/styles.css" rel="stylesheet">
   </head>
-  <body <% if(result){%>onload="initMap(<%=JSON.parse(result)%>)"<%} else {%> onload="initGeolocation()"<%}%>>
-<!-- begin template -->
+  <body <% if(result){%>onload="initMap(<%=JSON.stringify(result)%>, <%=JSON.stringify(center)%>)"<%} else {%> onload="initGeolocation()"<%}%>>
+
 <div class="navbar navbar-custom navbar-fixed-top">
  <div class="navbar-header"><a class="navbar-brand" href="#">Brand</a>
       <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
