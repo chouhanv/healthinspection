@@ -47,9 +47,9 @@ module.exports = (function () {
     lifted_closure : String , 
     trained_manager : String , 
     oo_compliance : String , 
-    violation_number : Number , 
+    violation_number : String , 
     requirements : String , 
-    demerits : Number , 
+    demerits : String , 
     corrected_site : String , 
     lat : Number , 
     lng : Number , 
@@ -73,14 +73,29 @@ module.exports = (function () {
     minLng = lng - degrees;
 
     console.log(maxLng, minLng, maxLat, minLat);
-    this.find({lat:{"$gt" : minLng, "$lt" : maxLat}, lng:{"$gt" : minLng, "$lt" : maxLng}}, function(err, data){
+    var th = this;
+    th.find({lat:{"$gt" : minLat, "$lt" : maxLat}, lng:{"$gt" : minLng, "$lt" : maxLng}}, function(err, data){
       if(err){
         callback(err, null);
       } else {
-        callback(null, data);
+        th.find().distinct('type', function(error, types) {
+            if(error){
+              callback(error, null)
+            } else {
+              callback(null, data, types)
+            }
+        });
       }
     });
   }
+
+  HealthInspectionsSchema.statics.findOneCleanRecord = function(callback){
+    this.findOne({violation_number:"NA", demerits:"0"}, function(err, record){
+      if(err) callback(err, null);
+      else callback(null, record);
+    });
+  }
+
   HealthInspectionsSchema.statics.findById = function(id, callback){
     console.log(id);
     this.find({_id : mongoose.Types.ObjectId(id)}, function(err, data){

@@ -4,6 +4,7 @@ var locomotive = require('locomotive')
   , request = require('request');
 
 var pagesController = new Controller();
+var monthArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 pagesController.main = function() {
 	// HealthInspections.create({type:"test"}, function(err, data){
@@ -13,6 +14,16 @@ pagesController.main = function() {
   this.render();
 }
 
+pagesController.index = function() {
+	var th = this;
+	HealthInspections.findOneCleanRecord(function(err, record){
+		if(err) console.log(err);
+		var dateObj = new Date(record.last_inspection);
+
+		th.render({record:record, dateString:monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear()});
+	});
+  
+}
 pagesController.searchOnMap = function(req,res){
 	var th = this;
 	var address = th.req.body.address;
@@ -26,11 +37,11 @@ pagesController.searchOnMap = function(req,res){
 			var lat = body.results[0].geometry.location.lat;
 			var lng = body.results[0].geometry.location.lng;
 			var range = 5; //in miles
-			HealthInspections.findByLatLng(lat, lng, range, function(error, data){
+			HealthInspections.findByLatLng(lat, lng, range, function(error, data, types){
 				if(error){
-					th.render("map", {result : null});
+					th.render("list", {result : null});
 				} else {
-					th.render("map", {result : data, center : {lat : lat , lng : lng}});
+					th.render("list", {result : data, center : {lat : lat , lng : lng}, types : types});
 				}
 			});
 		} else {
@@ -48,7 +59,6 @@ pagesController.showDetail = function(req, res){
 			console.log(error);
 			th.res.redirect("back");
 		} else if(data){
-			console.log("data", data);
 			th.render("detail", {data:data});
 		} else {
 			th.res.redirect("back");

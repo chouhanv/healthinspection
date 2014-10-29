@@ -146,13 +146,58 @@
 
     </table>
   </div>
-  <div class="col-sm-6" id="map-canvas" style="heigh:100%; width:50%">
+  <div class="col-sm-3">
+  <div id="map-canvas" style="height:200px; width:100%;">
+  </div>
+  <div>
+    
+    <div>
+      <label>
+        Mark As favourate
+      </label>
+      <div class="mark-as-favourate">
+        <input type="checkbox" onchange="setFavourateStatus(this.value, '<%=data[0]._id%>')">
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <div class="col-sm-3">
+
+    <div class="latest-comment">
+      <label>
+        Last 2 comments : 
+      </label>
+      <div class="last-2-comments">
+        
+      </div>
+    </div>
+    <div class="your-comment">
+      <label>
+        Write Comment
+      </label>
+      <form role="form">
+        <div class="form-group">
+          <input type="text" placeholder="Email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Subject" name="subject" class="form-control">
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" placeholder="Message" name="message"></textarea>
+        </div>
+         <div class="form-group">
+          <button type="button" class="btn btn-primary" onclick="addComment('<%=data[0]._id%>')">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
   <div class="col-sm-1"></div>
   </div>
 </div>
 
-<div id="footer">
+<!-- <div id="footer">
         <div class="container">
             <div class="row">
               <div class="col-sm-2"></div>
@@ -174,18 +219,18 @@
               <div class="col-sm-4">
                 <p>Write Comment</p>
                 <form role="form">
-              <div class="form-group">
-                <input type="text" placeholder="Name" class="form-control">
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" placeholder="Message"></textarea>
-              </div>
-            </form>
+                  <div class="form-group">
+                    <input type="text" placeholder="Name" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" placeholder="Message"></textarea>
+                  </div>
+                </form>
               </div>
               <div class="col-sm-2"></div>
             </div>
         </div>
-    </div>
+    </div> -->
 <!-- end template -->
 
   <!-- script references -->
@@ -193,5 +238,13 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
     <script src="/js/scripts.js"></script>
+    <script src="/js/common_functions.js"></script>
+
+    <script type="text/javascript">
+      getLastComment('<%=data[0]._id%>');
+      //getFavourateStatus();
+
+    </script>
+
   </body>
 </html>

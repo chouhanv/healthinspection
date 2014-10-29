@@ -6,7 +6,12 @@
 // Guide on [routing](http://locomotivejs.org/guide/routing.html) for additional
 // information.
 module.exports = function routes() {
-  this.root('pages#main');
+  this.root('pages#index');
+  this.get("/dev",'pages#main');
   this.post("/searchOnMap", 'pages#searchOnMap');
-  this.get("/details/:id", "pages#showDetail")
+  this.get("/details/:id", "pages#showDetail");
+  this.get("/findrecords/:range/:lat/:lng", "map#findRecords");
+
+  this.get("/getlatestcomment/:id", "inspections#getLatestComment");
+  this.post("/addcomment", "inspections#addComment")
 }
