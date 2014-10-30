@@ -59,6 +59,8 @@ function initGeolocation(){
      var mapZoom =11;
      var map = null;
      var markersArray = new Array();
+
+     
      function initMap(results, center){
       
       if(!searchForLocation){
@@ -117,10 +119,7 @@ function initGeolocation(){
             return R * c * 0.621371; // Distance in miles
           }
 
-            //console.log(map.getZoom(), ();
-
-              var distance = (map.NorthSouthDistance()+map.EastWestDistance())/4
-
+            var distance = (map.NorthSouthDistance()+map.EastWestDistance())/4
 
             var request = $.ajax({
                                 url: "/findrecords/" + distance + "/" + newCenter.lat() + "/" + newCenter.lng(),
@@ -143,56 +142,101 @@ function initGeolocation(){
 
 
           function distanceCalculator(origin, destination) {
+
             var R = 6371; // Radius of the earth in km
             var dLat = (origin.lat-destination.lat).toRad(); // Javascript functions in radians
             var dLon = (origin.lng-destination.lng).toRad();
-            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(origin.lat.toRad()) * Math.cos(destination.lat.toRad()) *
-            Math.sin(dLon/2) * Math.sin(dLon/2);
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(origin.lat.toRad()) * Math.cos(destination.lat.toRad()) *  Math.sin(dLon/2) * Math.sin(dLon/2);
             var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            return R * c; // Distance in miles
-          }
-
-
-          for(var j = 0; j<results.length; j++){
-
-            var myLatlng = new google.maps.LatLng(results[j].lat ,results[j].lng);
-
-            var distance = distanceCalculator(searchForLocation, {lat:results[j].lat ,lng:results[j].lng})
-            console.log(results[j]);
-            if(results[j].demerits >= 15){
-              var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map
-            });
-            } else if(results[j].oo_compliance == "No violations Found" && results[j].demerits == 0){
-              console.log(results[j]);
-              var marker = new google.maps.Marker({
-                  position: myLatlng,
-                  map: map,
-                  icon : '/images/green-marker.png'
-              });
-            } else if(results[j].violation_number && results[j].violation_number != 'NA'){
-              
-              var marker = new google.maps.Marker({
-                  position: myLatlng,
-                  map: map,
-                  icon : '/images/yellow-marker.png'
-              });
-            } else {
-              var marker = new google.maps.Marker({
-                  position: myLatlng,
-                  map: map,
-                  icon : '/images/green-marker.png'
-              });
-            }
             
-            var content = "<h5><a href='/details/"+results[j]._id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + distance + " KM</p>";
-            marker.setTitle(results[j].name);
-            markersArray.push(marker);
-
-            attachSecretMessage(marker, content);
+            return parseFloat(R * c).toFixed(2); // Distance in km
           }
+
+          var j = -1;
+          var next = function(){
+            j++;
+            if(j<results.length){
+              
+              var myLatlng = new google.maps.LatLng(results[j].lat ,results[j].lng);
+
+              var distance = distanceCalculator(searchForLocation, {lat:results[j].lat ,lng:results[j].lng})
+              console.log(distance);
+              if(results[j].demerits >= 15){
+                var marker = new google.maps.Marker({
+                  position: myLatlng,
+                  map: map
+              });
+              } else if(results[j].oo_compliance == "No violations Found" && results[j].demerits == 0){
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon : '/images/green-marker.png'
+                });
+              } else if(results[j].violation_number && results[j].violation_number != 'NA'){
+                
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon : '/images/yellow-marker.png'
+                });
+              } else {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon : '/images/green-marker.png'
+                });
+              }
+              
+              var content = "<h5><a href='/details/"+results[j]._id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + distance + " KM</p>";
+              marker.setTitle(results[j].name);
+              markersArray.push(marker);
+
+              attachSecretMessage(marker, content);
+
+              next();
+
+            }
+          }
+          next();
+
+          // for(var j = 0; j<results.length; j++){
+
+          //   var myLatlng = new google.maps.LatLng(results[j].lat ,results[j].lng);
+
+          //   var distance = distanceCalculator(searchForLocation, {lat:results[j].lat ,lng:results[j].lng})
+          //   console.log(distance);
+          //   if(results[j].demerits >= 15){
+          //     var marker = new google.maps.Marker({
+          //       position: myLatlng,
+          //       map: map
+          //   });
+          //   } else if(results[j].oo_compliance == "No violations Found" && results[j].demerits == 0){
+          //     var marker = new google.maps.Marker({
+          //         position: myLatlng,
+          //         map: map,
+          //         icon : '/images/green-marker.png'
+          //     });
+          //   } else if(results[j].violation_number && results[j].violation_number != 'NA'){
+              
+          //     var marker = new google.maps.Marker({
+          //         position: myLatlng,
+          //         map: map,
+          //         icon : '/images/yellow-marker.png'
+          //     });
+          //   } else {
+          //     var marker = new google.maps.Marker({
+          //         position: myLatlng,
+          //         map: map,
+          //         icon : '/images/green-marker.png'
+          //     });
+          //   }
+            
+          //   var content = "<h5><a href='/details/"+results[j]._id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + distance + " KM</p>";
+          //   marker.setTitle(results[j].name);
+          //   markersArray.push(marker);
+
+          //   attachSecretMessage(marker, content);
+          // }
      }
 
 

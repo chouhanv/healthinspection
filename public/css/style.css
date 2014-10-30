@@ -23,8 +23,7 @@ font-size: 17px; margin-bottom: 2%; margin-top: 2%;  }
 .img-detail { display: inline-block; }
 .detail-para { color:#ffffff; font-size:14px; font-weight:bold; }
 .large { font-size:20px; font-family: 'PT Sans', sans-serif;  }
-/*.details {margin: 0 auto; width: 46%; }*/
-.details {margin: 0 auto; width: 51%; }
+.details {margin: 0 auto; width: 46%; }
 .img-dtl { color:#ffffff; font-size:14px; font-weight:bold; text-align:center ;} 
 .last-update { color:#ffffff; font-size:14px; font-weight:bold; text-align:center ;  margin-bottom: 0; margin-top: 13px; }
 .logo-text2 { font-family: times new roman; font-size: 4em; font-weight: bold; text-align: center; color: #2c4757;  margin-top: -18px;}
@@ -52,10 +51,7 @@ font-size: 17px; margin-bottom: 2%; margin-top: 2%;  }
 
 
 
-.mid-content {
-    height:77%;
-    width: 100%;
-}
+
 
 
 

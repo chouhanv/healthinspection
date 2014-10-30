@@ -6,12 +6,22 @@
 // Guide on [routing](http://locomotivejs.org/guide/routing.html) for additional
 // information.
 module.exports = function routes() {
+
+  //page controller
+
   this.root('pages#index');
   this.get("/dev",'pages#main');
-  this.post("/searchOnMap", 'pages#searchOnMap');
+  
   this.get("/details/:id", "pages#showDetail");
-  this.get("/findrecords/:range/:lat/:lng", "map#findRecords");
 
+  //map controller
+
+  this.get("/findrecords/:range/:lat/:lng", "map#findRecords");
+  this.post("/searchOnMap", 'map#searchOnMap');
+  this.get("/search", "map#search");
+  this.get("/getnearestresult/:noofresult/:lat/:lng/:type", "map#getNearestResult");
+
+  //inspections controller
   this.get("/getlatestcomment/:id", "inspections#getLatestComment");
   this.post("/addcomment", "inspections#addComment")
 }

@@ -19,36 +19,14 @@ pagesController.index = function() {
 	HealthInspections.findOneCleanRecord(function(err, record){
 		if(err) console.log(err);
 		var dateObj = new Date(record.last_inspection);
-
-		th.render({record:record, dateString:monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear()});
+		var dateObj1 = new Date(record.date);
+		console.log("last_inspection", record.last_inspection);
+		th.render({record:record, 
+			lastInspection:monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear(),
+			updatedAt : monthArray[dateObj1.getMonth()] + " " + dateObj1.getDate() + ", " + dateObj1.getFullYear(),
+		});
 	});
   
-}
-pagesController.searchOnMap = function(req,res){
-	var th = this;
-	var address = th.req.body.address;
-	console.log(address);
-	var url = "https://maps.googleapis.com/maps/api/geocode/json?address="+address;
-	request.get(url, function (error, response, body) {
-		if(error){
-			console.log(error);
-		} else if(response.statusCode == 200){
-			var body = JSON.parse(body);
-			var lat = body.results[0].geometry.location.lat;
-			var lng = body.results[0].geometry.location.lng;
-			var range = 5; //in miles
-			HealthInspections.findByLatLng(lat, lng, range, function(error, data, types){
-				if(error){
-					th.render("list", {result : null});
-				} else {
-					th.render("list", {result : data, center : {lat : lat , lng : lng}, types : types});
-				}
-			});
-		} else {
-			console.log(response);
-			th.render("main");
-		}
-    });
 }
 
 pagesController.showDetail = function(req, res){

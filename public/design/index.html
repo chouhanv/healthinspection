@@ -41,14 +41,14 @@
 					<p class="txt-official">Ofﬁcial Health Inspections Search App</p>
 					<div class="search-block">
 						<p class="txt-search">SEARCH BY ADDRESS OR BUSINESS NAME</p>
-						<form method="get" action="/search">
+						<form>
 							<div class="form-group">
 								<div class="clearfix srch-elem">
-									<input name="address" type="text" required class="search-box">
+									<input type="text" required class="search-box">
 									<button class="btn-go" type="submit">GO</button>
 								</div>
 								<span class="txt-or">OR</span>
-								<div><a class="btn btn-primary btn-main" href="/search?address=">SEARCH NEARBY</a></div>
+								<div class="btn btn-primary btn-main">SEARCH NEARBY</div>
 							</div>
 						</form>
 					</div>
@@ -62,15 +62,15 @@
 								<span class="loctd-at">400 yds</span>
 							</div>
 							<div class="item-info">
-								<p class="item-name"><%=record.name%></p>
-								<div class="item-type"><span class="item-ic"><img src="images/ic-restaurant-white.png" alt=""></span><span class="item-def"><%=record.type%><span></div>
-								<p class="item-address"><%=record.street%> <%=record.city%> - <%=record.zip%></p>
-								<p class="txt-lastInsp">Last Inspection: <%=lastInspection%></p>
+								<p class="item-name">Lupe Tortilla Long Name of Business</p>
+								<div class="item-type"><span class="item-ic"><img src="images/ic-restaurant-white.png" alt=""></span><span class="item-def">Restaurant<span></div>
+								<p class="item-address">123 Shepherd Dr Houston, TX 77007</p>
+								<p class="txt-lastInsp">Last Inspection: Oct 13, 2014</p>
 							</div>
 						</div>
 					</div>
 					<div class="txt-lastUpdt">
-						Last Update: <%=updatedAt%>
+						Last Update: Nov 4, 2014
 					</div>
 				</div>
 			</div>
@@ -83,12 +83,5 @@
 			$('.wrapper').css('min-height', canvasHeight);
 		})
 	</script>
-	<script src="/js/map.js"></script>
-	<script type="text/javascript">
-		//findNearestResult(1, "Restaurant");
-
-		findDistanceFromHere('<%=record.lat%>', '<%=record.lng%>');
-	</script>
 </body>
 </html>
-
