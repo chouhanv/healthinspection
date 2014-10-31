@@ -61,6 +61,12 @@ module.exports = (function () {
     this.findOne({username: username}, cb);
   };
 
+  HealthInspectionsSchema.statics.findDetail = function(id, callback){
+    this.find({_id:id}).sort({"date":-1}).exec(function(error, result){
+      console.log(result);
+    });
+  }
+
   HealthInspectionsSchema.statics.findByLatLng = function(lat, lng, range, callback){
 
     var milesPerDegree = 0.868976242 / 60.0 * 1.2;        
@@ -84,20 +90,18 @@ module.exports = (function () {
 
             var obj = new Object();
             obj._id = data._id;
+            obj.id = data.toJSON().id;
             obj.type = data.type;
             obj.name = data.name;
             obj.street = data.street;
             obj.city = data.city;
             obj.demerits = data.demerits;
             obj.last_inspection = data.last_inspection;
-            obj.inspection_type = data.inspection_type;
-            obj.complaint = data.complaint;
             obj.citation_issued = data.citation_issued;
             obj.oo_compliance = data.oo_compliance;
             obj.violation_number = data.violation_number;
             obj.lat = data.lat;
             obj.lng = data.lng;
-            obj.permit_expiration = data.permit_expiration;
 
             if(!isMultipled && obj.oo_compliance == "No Violations Found")
               obj.map_marker_type = "/images/green.png";
