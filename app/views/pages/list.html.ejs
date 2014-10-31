@@ -3,59 +3,88 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DimDrop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.ico">
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-   
-	<link rel="stylesheet" href="/css/font-awesome.css">
-	 <link href="css/style.css" rel="stylesheet">
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <title>HCPHES</title>
+
+	<!-- Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	
+    <!-- CSS -->
+	<link href="/css/fonts.css" rel="stylesheet">
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/layout.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </head>
-  <body>
-  
-	  <div class="wrapper">
-	  
-	    <div class="header">
-			 <div class="row">
-				 <div class="col-md-2 col-sm-2 col-xs-2"><p class="circle"><span class="circle1"><i class="fa fa-angle-left arw"></i></span></p></div>
-				 <div class="col-md-8 col-sm-8 col-xs-8"><p class="text-heading">MAP VIEW</p></div>
-				 <div class="col-md-2 col-sm-2 col-xs-2"><p class="next-text">Filter...</p></div>
-			</div>
-	    </div>
-	  
-	  <div class="mid-content" id="map-canvas" style="height:76%">
-          
-	  </div>
-	  
-	 <div class="footer">
-	    <div class="menu-list">
-	      <ul class="menu-lists">
-	        <li><img src="images/1.png" class="img-resources img1 imgs"></li>
-	        <li><img src="images/3.png" class="img-resources img2 imgs"></li>
-			<li><img src="images/5.png" class="img-resources img3 imgs"></li>
-			<li><img src="images/4.png" class="img-resources img4 imgs"></li>
-			<li><img src="images/2.png" class="img-resources img5 imgs"></li>
-	      </ul>
-	    </div>
-	 
-	 </div>	  
- </div>
 
-	<script src="/js/lib/jquery-1.10.2.min.js"></script>
-    <script src="/js/lib/bootstrap.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
+  <body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="contnt-wrppr">
+				<div class="header">
+					<div class="header-wrppr">
+						<div class="header-lft">
+							<img onclick="history.back();" src="images/btn-back.png" alt="">
+						</div>
+						<div class="header-mid">
+							<h1 class="screen-title">Inspection Details</h1>
+						</div>
+						<div class="header-rght">
+							<img src="images/btn-share.png" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="pg-content">
+	  
+	  				<div id="map-canvas" style="height:76%">
+          
+
+	  			</div>
+				<div class="footer">
+					<div class="footer-wrppr">
+						<ul class="clearfix app-nav">
+							<li><a href="#" class="link-home"><img src="images/ic-home.png" alt=""></a></li>
+							<li><a href="#" class="link-map"><img src="images/ic-map.png" alt=""></a></li>
+							<li><a href="#" class="link-list"><img src="images/ic-list.png" alt=""></a></li>
+							<li><a href="#" class="link-bubble"><img src="images/ic-profile.png" alt=""></a></li>
+							<li><a href="#" class="link-more"><img src="images/ic-more.png" alt=""></a></li>
+							<li><a href="#" class="link-profile"><img src="images/ic-bubble.png" alt=""></a></li>
+							<li><a href="#" class="link-share"><img src="images/ic-share.png" alt=""></a></li>
+							<li><a href="#" class="link-settings"><img src="images/ic-settings.png" alt=""></a></li>
+							<li><a href="#" class="link-help"><img src="images/ic-help.png" alt=""></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		var canvasHeight = $(window).height();
+		$(document).ready(function(){
+			$('.wrapper').css('height', canvasHeight);
+			$('.wrapper > .container').css('min-height', canvasHeight);
+			$('.contnt-wrppr').css('max-height', canvasHeight);
+			$('#map-canvas').css('height', canvasHeight);
+		})
+	</script>
+	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
     <script src="/js/scripts.js"></script>
     <script src="/js/map.js"></script>
     <script type="text/javascript">
     search('<%=address%>');
     </script>
-  </body>
-  </html>
+</body>
+</html>

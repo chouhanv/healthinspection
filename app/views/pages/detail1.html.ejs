@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>2 column Google maps, foursquare (outer scroll</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/css/styles.css" rel="stylesheet">
+  </head>
+  <body onload="initMap(<%=JSON.stringify(data)%>, <%=JSON.stringify(data[0])%>)">
+  <div class="navbar navbar-custom navbar-fixed-top">
+ <div class="navbar-header"><a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Search Near</a></li>
+        <li><a href="#">Find Items</a></li>
+        <li><a href="#">Meachents</a></li>
+        <li><a href="#">Top Deals</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li>&nbsp;</li>
+      </ul>
+      
+    </div>
+</div>
+
+<div id="main">
+  <div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+    <table>
+      <tr>
+        <td>Name</td>
+        <td><%=data[0].name%></td>
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td><%=data[0].type%></td>
+      </tr>
+      <tr>
+        <td>Street</td>
+        <td><%=data[0].street%></td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td><%=data[0].city%></td>
+      </tr>
+      <tr>
+        <td>Citation Issued</td>
+        <td><%=data[0].citation_issued%></td>
+      </tr>
+      <tr>
+        <td>Closure</td>
+        <td><%=data[0].closure%></td>
+      </tr>
+      <tr>
+        <td>Complaint</td>
+        <td><%=data[0].complaint%></td>
+      </tr>
+      <tr>
+        <td>Corrected Site</td>
+        <td><%=data[0].corrected_site%></td>
+      </tr>
+      <tr>
+        <td>Date</td>
+        <td><%=data[0].date%></td>
+      </tr>
+      <tr>
+        <td>Demerits</td>
+        <td><%=data[0].demerits%></td>
+      </tr>
+
+      <tr>
+        <td>Inspection Type</td>
+        <td><%=data[0].inspection_type%></td>
+      </tr>
+      <tr>
+        <td>Last Inspection Site</td>
+        <td><%=data[0].last_inspection%></td>
+      </tr>
+
+      <tr>
+        <td>Requirements</td>
+        <td><%=data[0].requirements%></td>
+      </tr>
+      <tr>
+        <td>Water Supply</td>
+        <td><%=data[0].water_supply%></td>
+      </tr>
+
+      <tr>
+        <td>Lifted Closure</td>
+        <td><%=data[0].lifted_closure%></td>
+      </tr>
+      <tr>
+        <td>Permit Expiration</td>
+        <td><%=data[0].permit_expiration%></td>
+      </tr>
+
+
+      <tr>
+        <td>Pounds Food Destroyed</td>
+        <td><%=data[0].pounds_food_destroyed%></td>
+      </tr>
+      <tr>
+        <td>Red Tags Removed</td>
+        <td><%=data[0].red_tags_removed%></td>
+      </tr>
+      <tr>
+        <td>Septic System</td>
+        <td><%=data[0].septic_system%></td>
+      </tr>
+      <tr>
+        <td>Violation Number</td>
+        <td><%=data[0].violation_number%></td>
+      </tr>
+      <tr>
+        <td>Was Red Tag Issued</td>
+        <td><%=data[0].was_red_tag_issued%></td>
+      </tr>
+
+      <tr>
+        <td>Followup Inspection Rrequired</td>
+        <td><%=data[0].Followup_inspection_required%></td>
+      </tr>
+      <tr>
+        <td>Foodborne Illness investigation</td>
+        <td><%=data[0].foodborne_illness_investigation%></td>
+      </tr>
+      <tr>
+        <td>Foodborne Illness Lab Confirmed</td>
+        <td><%=data[0].foodborne_illness_lab_confirmed%></td>
+      </tr>
+
+    </table>
+  </div>
+  <div class="col-sm-3">
+  <div id="map-canvas" style="height:200px; width:100%;">
+  </div>
+  <div>
+    
+    <div>
+      <label>
+        Mark As favourate
+      </label>
+      <div class="mark-as-favourate">
+        <input type="checkbox" onchange="setFavourateStatus(this.value, '<%=data[0]._id%>')">
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <div class="col-sm-3">
+
+    <div class="latest-comment">
+      <label>
+        Last 2 comments : 
+      </label>
+      <div class="last-2-comments">
+        
+      </div>
+    </div>
+    <div class="your-comment">
+      <label>
+        Write Comment
+      </label>
+      <form role="form">
+        <div class="form-group">
+          <input type="text" placeholder="Email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Subject" name="subject" class="form-control">
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" placeholder="Message" name="message"></textarea>
+        </div>
+         <div class="form-group">
+          <button type="button" class="btn btn-primary" onclick="addComment('<%=data[0]._id%>')">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-sm-1"></div>
+  </div>
+</div>
+
+<!-- <div id="footer">
+        <div class="container">
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-2">
+                <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">Map View</a></li>
+                  <li><a href="#">List View</a></li>
+                </ul>
+              </div>
+              <div class="col-sm-2">
+                <ul>
+                  <li><a href="#">Favorites</a></li>
+                  <li><a href="#">Settings</a></li>
+                  <li><a href="#">Account/Profile</a></li>
+                </ul>
+              </div>
+              
+              <div class="col-sm-4">
+                <p>Write Comment</p>
+                <form role="form">
+                  <div class="form-group">
+                    <input type="text" placeholder="Name" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" placeholder="Message"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="col-sm-2"></div>
+            </div>
+        </div>
+    </div> -->
+<!-- end template -->
+
+  <!-- script references -->
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/common_functions.js"></script>
+
+    <script type="text/javascript">
+      getLastComment('<%=data[0]._id%>');
+      //getFavourateStatus();
+
+    </script>
+
+  </body>
+</html>

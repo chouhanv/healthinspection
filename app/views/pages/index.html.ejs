@@ -32,8 +32,7 @@
   <body>
 	<div class="wrapper">
 		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
+			<div class="contnt-wrppr">
 					<div class="app-logo">
 						<p>Harris County</p>
 						<p class="main-txt">HCPHES<span class="btm-txt"><span>Public Health & Environmental Services</span></span></p>
@@ -59,7 +58,7 @@
 								<div class="img-contnr">
 									<img src="images/item-img.jpg" alt="">
 								</div>
-								<span class="loctd-at">400 yds</span>
+								<span class="loctd-at"></span>
 							</div>
 							<div class="item-info">
 								<p class="item-name"><%=record.name%></p>
@@ -72,22 +71,23 @@
 					<div class="txt-lastUpdt">
 						Last Update: <%=updatedAt%>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 	
 	<script>
-		var canvasHeight = $(window).height();
-		$(document).ready(function(){
-			$('.wrapper').css('min-height', canvasHeight);
-		})
-	</script>
+       var canvasHeight = $(window).height();
+       $(document).ready(function(){
+               $('.wrapper').css('height', canvasHeight);
+               $('.wrapper > .container').css('min-height', canvasHeight);
+               $('.contnt-wrppr').css('max-height', canvasHeight);
+       });
+    </script>
 	<script src="/js/map.js"></script>
 	<script type="text/javascript">
 		//findNearestResult(1, "Restaurant");
 
-		findDistanceFromHere('<%=record.lat%>', '<%=record.lng%>');
+		findDistanceFromHere('<%=record.lat%>', '<%=record.lng%>', ".loctd-at");
 	</script>
 </body>
 </html>

@@ -1,90 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>2 column Google maps, foursquare (outer scroll)</title>
-    <meta name="generator" content="Bootply" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <title>HCPHES</title>
+
+  <!-- Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  
+    <!-- CSS -->
+  <link href="/css/fonts.css" rel="stylesheet">
+  <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/layout.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href="css/styles.css" rel="stylesheet">
-  </head>
-  <body <% if(result){%>onload="initMap(<%=JSON.stringify(result)%>, <%=JSON.stringify(center)%>)"<%} else {%> onload="initGeolocation()"<%}%>>
-
-<div class="navbar navbar-custom navbar-fixed-top">
- <div class="navbar-header"><a class="navbar-brand" href="#">Brand</a>
-      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-    </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Search Near</a></li>
-        <li><a href="#">Find Items</a></li>
-        <li><a href="#">Meachents</a></li>
-        <li><a href="#">Top Deals</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li>&nbsp;</li>
-      </ul>
-      
-    </div>
-</div>
-
-<div id="main">
-  <div class="row">
-  <div class="col-lg-12" id="map-canvas" style="heigh:100%; width:100%">
-  </div>
-  </div>
-</div>
-
-
-<div id="footer">
-        <div class="container">
-            <div class="row">
-              <div class="col-sm-2"></div>
-              <div class="col-sm-2">
-                <ul>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Map View</a></li>
-                  <li><a href="#">List View</a></li>
-                </ul>
-              </div>
-              <div class="col-sm-2">
-                <ul>
-                  <li><a href="#">Favorites</a></li>
-                  <li><a href="#">Settings</a></li>
-                  <li><a href="#">Account/Profile</a></li>
-                </ul>
-              </div>
-              
-              <div class="col-sm-4">
-                <p>Write Comment</p>
-                <form role="form">
-              <div class="form-group">
-                <input type="text" placeholder="Name" class="form-control">
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" placeholder="Message"></textarea>
-              </div>
-            </form>
-              </div>
-              <div class="col-sm-2"></div>
-            </div>
-        </div>
-    </div>
-<!-- end template -->
-
-  <!-- script references -->
-    <script src="js/jquery-1.10.2.min.js"></script>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
-    <script src="js/scripts.js"></script>
-  </body>
+  </head>
+
+  <body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="contnt-wrppr">
+        <div class="header">
+          <div class="header-wrppr">
+            <div class="header-lft">
+              <img onclick="history.back();" src="images/btn-back.png" alt="">
+            </div>
+            <div class="header-mid">
+              <h1 class="screen-title">Inspection Details</h1>
+            </div>
+            <div class="header-rght">
+              <img src="images/btn-share.png" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="pg-content">
+    
+            <div id="map-canvas" style="height:76%">
+          
+
+          </div>
+        <div class="footer">
+          <div class="footer-wrppr">
+            <ul class="clearfix app-nav">
+              <li><a href="/" class="link-home"><img src="images/ic-home.png" alt=""></a></li>
+              <li><a href="#" class="link-map"><img src="images/ic-map.png" alt=""></a></li>
+              <li><a href="/search/list?address=<%=address%>" class="link-list"><img src="images/ic-list.png" alt=""></a></li>
+              <li><a href="#" class="link-bubble"><img src="images/ic-profile.png" alt=""></a></li>
+              <li><a href="#" class="link-more"><img src="images/ic-more.png" alt=""></a></li>
+              <li><a href="#" class="link-profile"><img src="images/ic-bubble.png" alt=""></a></li>
+              <li><a href="#" class="link-share"><img src="images/ic-share.png" alt=""></a></li>
+              <li><a href="#" class="link-settings"><img src="images/ic-settings.png" alt=""></a></li>
+              <li><a href="#" class="link-help"><img src="images/ic-help.png" alt=""></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    var canvasHeight = $(window).height();
+    $(document).ready(function(){
+      $('.wrapper').css('height', canvasHeight);
+      $('.wrapper > .container').css('min-height', canvasHeight);
+      $('.contnt-wrppr').css('max-height', canvasHeight);
+      $('#map-canvas').css('height', canvasHeight);
+    })
+  </script>
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/map.js"></script>
+    <script type="text/javascript">
+    search('<%=address%>');
+    </script>
+</body>
 </html>

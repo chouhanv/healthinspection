@@ -80,14 +80,50 @@ module.exports = (function () {
       } else if(val.length > 0){
           var finalResult = new Array();
 
-          function findMapMarker(data, callback){
-            if(data.oo_compliance == "No Violations Found")
-              data.map_marker_type = "GREEN";
-            else if(data.demerits >= 15 || data.citation_issued == 1)
-              data.map_marker_type = "RED";
+          function findMapMarker(data, isMultipled, callback){
+
+            var obj = new Object();
+            obj._id = data._id;
+            obj.type = data.type;
+            obj.name = data.name;
+            obj.street = data.street;
+            obj.city = data.city;
+            obj.demerits = data.demerits;
+            obj.last_inspection = data.last_inspection;
+            obj.inspection_type = data.inspection_type;
+            obj.complaint = data.complaint;
+            obj.citation_issued = data.citation_issued;
+            obj.oo_compliance = data.oo_compliance;
+            obj.violation_number = data.violation_number;
+            obj.lat = data.lat;
+            obj.lng = data.lng;
+            obj.permit_expiration = data.permit_expiration;
+
+            if(!isMultipled && obj.oo_compliance == "No Violations Found")
+              obj.map_marker_type = "/images/green.png";
+            else if(data.demerits >= 15 || obj.citation_issued == 1)
+              obj.map_marker_type = "/images/red.png";
+            else if(obj.demerits < 15 && obj.citation_issued == 0)
+              obj.map_marker_type = "/images/yellow.png"
+            else if(isMultipled && obj.oo_compliance == "No Violations Found")
+              obj.map_marker_type = "/images/green.png";
             else
-              data.map_marker_type = "YELLOW";
-            callback(data);
+              obj.map_marker_type = "/images/yellow.png";
+            callback(obj);
+          }
+
+          Number.prototype.toRad = function() {
+            return this * Math.PI / 180;
+          }
+
+          function calculateDistance(origin, destination, callback){
+
+            var R = 6371; // Radius of the earth in km
+            var dLat = (origin.lat-destination.lat).toRad(); // Javascript functions in radians
+            var dLon = (origin.lng-destination.lng).toRad();
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(origin.lat.toRad()) * Math.cos(destination.lat * Math.PI / 180) *  Math.sin(dLon/2) * Math.sin(dLon/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            callback(parseFloat(R * c).toFixed(2));
           }
 
           var recordNo = 0;
@@ -104,9 +140,12 @@ module.exports = (function () {
                 } else {
                   if(similarRecords.length == 1){
                     //for single result
-                    findMapMarker(similarRecords[0], function(data){
-                      finalResult.push(data);
-                      nextRecord();
+                    findMapMarker(similarRecords[0], false, function(data){
+                      calculateDistance({lat:lat, lng:lng}, {lat:data.lat, lng:data.lng}, function(distance){
+                        data.distance_from_origin = distance;
+                        finalResult.push(data);
+                        nextRecord();
+                      });
                     });
                   } else {
                     //for multiple result
@@ -115,17 +154,18 @@ module.exports = (function () {
                       if(similarRecords[z].citation_issued == 1)
                         similarRecords[0].citation_issued = similarRecords[z].citation_issued;
                     }
-                    findMapMarker(similarRecords[0], function(data){
-                      finalResult.push(data);
-                      nextRecord();
+                    findMapMarker(similarRecords[0], true, function(data){
+                      calculateDistance({lat:lat, lng:lng}, {lat:data.lat, lng:data.lng}, function(distance){
+                        data.distance_from_origin = distance;
+                        finalResult.push(data);
+                        nextRecord();
+                      });
                     });
                   }
                 }
               });
 
             } else {
-              console.log("here");
-              console.log(finalResult[0], finalResult[0].map_marker_type);
               callback(null, finalResult);
             }
           }
@@ -240,10 +280,11 @@ module.exports = (function () {
 
   HealthInspectionsSchema.statics.findById = function(id, callback){
     console.log(id);
-    this.find({_id : mongoose.Types.ObjectId(id)}, function(err, data){
+    this.findOne({_id : mongoose.Types.ObjectId(id)}, function(err, data){
       if(err){
         callback(err, null);
       } else {
+
         callback(null, data);
       }
     });

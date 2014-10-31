@@ -37,7 +37,15 @@ pagesController.showDetail = function(req, res){
 			console.log(error);
 			th.res.redirect("back");
 		} else if(data){
-			th.render("detail", {data:data});
+			console.log("date", data.last_inspection);
+			var dateObj = new Date(data.last_inspection);
+			var dateObj1 = new Date(data.date);
+
+			console.log(dateObj1, dateObj);
+			th.render('pages/detail',{data:data, 
+				lastInspection:monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear(),
+				updatedAt : monthArray[dateObj1.getMonth()] + " " + dateObj1.getDate() + ", " + dateObj1.getFullYear(),
+			});
 		} else {
 			th.res.redirect("back");
 		}

@@ -39,9 +39,9 @@ mapController.searchOnMap = function(req,res){
 			var range = 5; //in miles
 			HealthInspections.findByLatLng(lat, lng, range, function(error, data, types){
 				if(error){
-					th.render("pages/list", {result : null});
+					th.render("pages/map", {result : null});
 				} else {
-					th.render("pages/list", {result : data, center : {lat : lat , lng : lng}, types : types});
+					th.render("pages/map", {result : data, center : {lat : lat , lng : lng}, types : types});
 				}
 			});
 		} else {
@@ -52,7 +52,7 @@ mapController.searchOnMap = function(req,res){
 }
 
 mapController.search = function(req, res){
-	this.render("pages/list", {address:this.req.param("address")});
+	this.render("pages/map", {address:this.req.param("address")});
 }
 
 mapController.getNearestResult = function(req, res){

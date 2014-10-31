@@ -18,12 +18,12 @@ if (typeof(Number.prototype.toRad) === "undefined") {
   }
 }
 
+var distanceTarget = null;
+
 var infoWindows = new Array();
 
-console.log("Hello i am");
-
-function findDistanceFromHere(lat, lng){
-
+function findDistanceFromHere(lat, lng, target){
+	distanceTarget = target;
 	if(navigator.geolocation) {
      navigator.geolocation.getCurrentPosition(GEOPosition);
   } else {
@@ -33,7 +33,7 @@ function findDistanceFromHere(lat, lng){
   function GEOPosition(position) {
 		var distance = distanceCalculator({lat:position.coords.latitude, lng:position.coords.longitude}, {lat:lat, lng:lng});
 		distance = (distance * 1093.61).toFixed(0) //converting km to yd
-		$(".loctd-at").text(distance + " yds");
+		$(distanceTarget).text(distance + " yds");
 	}
 }
 
@@ -94,6 +94,7 @@ function initlizeMap(){
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
 
+
 //calculating distance between to points by using ‘haversine’ formula
 function distanceCalculator(origin, destination) {
   var R = 6371; // Radius of the earth in km
@@ -126,39 +127,18 @@ function addMarkersForResult(results){
     if(j<results.length){
       
       var myLatlng = new google.maps.LatLng(results[j].lat ,results[j].lng);
-      var distance = distanceCalculator(originGEO, {lat:results[j].lat ,lng:results[j].lng})
+
 	  	var marker;
 
-      if(results[j].demerits >= 15){
-        marker = new google.maps.Marker({position: myLatlng, map: map });
-      } else if(results[j].oo_compliance == "No violations Found" && results[j].demerits == 0){
-        marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            icon : '/images/green-marker.png',
-            animation : google.maps.Animation.DROP,
-            infoWindowIndex : j //<---Thats the extra attribute
-        });
-      } else if(results[j].violation_number && results[j].violation_number != 'NA'){
-        
-        marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            icon : '/images/yellow-marker.png',
-            animation : google.maps.Animation.DROP,
-          	infoWindowIndex : j //<---Thats the extra attribute
-        });
-      } else {
-        marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            icon : '/images/green-marker.png',
-            animation : google.maps.Animation.DROP,
-          	infoWindowIndex : j //<---Thats the extra attribute
-        });
-      }
+      var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          icon : results[j].map_marker_type,
+          animation : google.maps.Animation.DROP,
+        	infoWindowIndex : j //<---Thats the extra attribute
+      });
       
-	    var content = "<h5><a href='/details/"+results[j]._id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + distance + " KM</p>";
+	    var content = "<h5><a href='/details/"+results[j]._id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + results[j].distance_from_origin + " KM</p>";
    		attachSecretMessage(marker, content);
     	next();
     } else {
