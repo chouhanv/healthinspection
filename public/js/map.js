@@ -35,7 +35,6 @@ function findDistanceFromHere(lat, lng){
 		distance = (distance * 1093.61).toFixed(0) //converting km to yd
 		$(".loctd-at").text(distance + " yds");
 	}
-
 }
 
 function findNearestResult(results, type){

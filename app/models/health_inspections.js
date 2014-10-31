@@ -72,71 +72,135 @@ module.exports = (function () {
     minLng = lng - degrees;
 
     var th = this;
+
     th.find({lat:{"$gt" : minLat, "$lt" : maxLat}, lng:{"$gt" : minLng, "$lt" : maxLng}})
-    .sort({"id" : 1, 'last_inspection': -1, 'date' : -1})
-    .exec(function(err, data){
-      if(err){
-        callback(err, null);
-      } else {
-        th.find().distinct('type', function(error, types) {
-            if(error){
-              callback(error, null)
+    .distinct("id", function(error, val){
+      if(error){
+        callback(error, null);
+      } else if(val.length > 0){
+          var finalResult = new Array();
+
+          function findMapMarker(data, callback){
+            if(data.oo_compliance == "No Violations Found")
+              data.map_marker_type = "GREEN";
+            else if(data.demerits >= 15 || data.citation_issued == 1)
+              data.map_marker_type = "RED";
+            else
+              data.map_marker_type = "YELLOW";
+            callback(data);
+          }
+
+          var recordNo = 0;
+          function nextRecord(){
+            recordNo++;
+            if(recordNo < val.length){
+
+              th.find({id:val[recordNo]})
+              .sort({"date":-1})
+              .exec(function(err, similarRecords){
+                if(error){
+                  console.log(error);
+                  nextRecord();
+                } else {
+                  if(similarRecords.length == 1){
+                    //for single result
+                    findMapMarker(similarRecords[0], function(data){
+                      finalResult.push(data);
+                      nextRecord();
+                    });
+                  } else {
+                    //for multiple result
+                    for(var z = 1; z < similarRecords.length; z++){
+                      similarRecords[0].demerits = parseInt(similarRecords[0].demerits) + parseInt(similarRecords[z].demerits);
+                      if(similarRecords[z].citation_issued == 1)
+                        similarRecords[0].citation_issued = similarRecords[z].citation_issued;
+                    }
+                    findMapMarker(similarRecords[0], function(data){
+                      finalResult.push(data);
+                      nextRecord();
+                    });
+                  }
+                }
+              });
+
             } else {
-
-              // var array = new Array(); // storing filtered records
-              // var R = 6371; // Radius of the earth in km
-              // var dLat; // lat in radion
-              // var dLon; // lng in radion
-              // var distance;
-
-              // Number.prototype.toRad = function() {
-              //   return this * Math.PI / 180;
-              // }
-
-              // for(var x = 0; x < data.length; x++){
-              //   var found = false;
-              //   data[x].total_demerits = 0;
-
-              //   // finding duplicated
-              //   for(var j = 0; j < array.length; j++){
-              //     if(array[j].id == data[x].toJSON().id) {
-              //       found = true;
-              //       break;
-              //     }
-              //   }
-              //   if(!found) {
-              //     //adding demerits
-              //     for(var k = 0; k < data.length; k++){
-              //       if(data[k].toJSON().id == data[x].toJSON().id){
-              //         data[x].total_demerits += data[k].demerits;
-              //       }
-              //     }
-
-              //     //map type markers
-              //     if(data[x].oo_compliance == "No Violations Found") data[x].map_marker_type = "green";
-              //     else if(data[x].demerits >= 15 || data[x].citation_issued == 1) data[x].map_marker_type = "red";
-              //     else if(data[x].citation_issued == 0 && data[x].demerits < 15) data[x].map_marker_type = "yellow"
-
-              //     //calculating distance from origin
-              //     //This uses the ‘haversine’ formula to calculate the great-circle distance between two points
-                  
-              //     dLat = (lat-data[x].lat).toRad();
-              //     dLon = (lng-data[x].lng).toRad();
-              //     var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat.toRad()) * Math.cos(data[x].lat.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);
-              //     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-              //     distance = R * c  // Distance in km
-
-              //     data[x].distance_from_origin = distance;
-
-              //     array.push(data[x]);
-              //     console.log(data[x]);
-              //   }
-              // }
-              callback(null, data, types)
+              console.log("here");
+              console.log(finalResult[0], finalResult[0].map_marker_type);
+              callback(null, finalResult);
             }
-        });
+          }
+          nextRecord();
+
+      } else {
+        callback(null, val);
       }
     });
+
+    // th.find({lat:{"$gt" : minLat, "$lt" : maxLat}, lng:{"$gt" : minLng, "$lt" : maxLng}})
+    // .sort({"id" : 1, 'last_inspection': -1, 'date' : -1})
+    // .exec(function(err, data){
+    //   if(err){
+    //     callback(err, null);
+    //   } else {
+    //     th.find().distinct('type', function(error, types) {
+    //         if(error){
+    //           callback(error, null)
+    //         } else {
+
+    //           var array = new Array(); // storing filtered records
+    //           var R = 6371; // Radius of the earth in km
+    //           var dLat; // lat in radion
+    //           var dLon; // lng in radion
+    //           var distance;
+
+    //           Number.prototype.toRad = function() {
+    //             return this * Math.PI / 180;
+    //           }
+
+    //           for(var x = 0; x < data.length; x++){
+    //             var found = false;
+    //             data[x].total_demerits = 0;
+
+    //             // finding duplicated
+    //             for(var j = 0; j < array.length; j++){
+    //               if(array[j].id == data[x].toJSON().id) {
+    //                 found = true;
+    //                 break;
+    //               }
+    //             }
+    //             if(!found) {
+    //               //adding demerits
+    //               for(var k = 0; k < data.length; k++){
+    //                 if(data[k].toJSON().id == data[x].toJSON().id){
+    //                   data[x].total_demerits += data[k].demerits;
+    //                 }
+    //               }
+
+    //               //map type markers
+    //               if(data[x].oo_compliance == "No Violations Found") data[x].map_marker_type = "green";
+    //               else if(data[x].demerits >= 15 || data[x].citation_issued == 1) data[x].map_marker_type = "red";
+    //               else if(data[x].citation_issued == 0 && data[x].demerits < 15) data[x].map_marker_type = "yellow"
+
+    //               //calculating distance from origin
+    //               //This uses the ‘haversine’ formula to calculate the great-circle distance between two points
+                  
+    //               dLat = (lat-data[x].lat).toRad();
+    //               dLon = (lng-data[x].lng).toRad();
+    //               var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat.toRad()) * Math.cos(data[x].lat.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    //               var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    //               distance = R * c  // Distance in km
+
+    //               data[x].distance_from_origin = distance;
+
+    //               array.push(data[x]);
+    //               console.log(data[x]);
+    //             }
+    //           }
+    //           callback(null, data, types)
+    //         }
+    //     });
+    //   }
+    // });
   }
 
   HealthInspectionsSchema.statics.findOneCleanRecord = function(callback){
