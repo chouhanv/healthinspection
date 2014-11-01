@@ -51,8 +51,10 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
 .btn-main { background-color: #528c9c; border: medium none; font-size: 2.0rem; font-weight: 700; border-radius: 15px; min-width: 24.6rem; }
 .btn-main:hover, .btn-main:focus { background-color: #528c9c; color: #ffffff; }
 .btn-full { width: 100%; }
+.txt-link { font-weight: 700; height: 100%; padding: 1.3rem 0; }
+.txt-link > span { display: inline-block; cursor: pointer; padding: 0.5rem 0; }
   
-/*main-page*/
+/*main page*/
 .app-logo { font-family: Times New Roman, sans-serif; text-align: center; font-weight: bold; color: #3d5867; margin-top: 2rem; }
 .app-logo > p { margin-bottom: 0; }
 .main-txt { font-size: 4rem; margin-top: -0.7rem; }
@@ -102,15 +104,36 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
 .insp-icns > li { display: inline-block; height: auto; margin-left: 3px; width: 8%; margin-top: 3px; }
 .insp-icns > li img { max-width: 100%; }
 
+/*list page*/
+.list-detail { box-shadow: 0 10px 10px -3px rgba(59, 97, 110, 1); margin: 2.5rem -1.5rem 0; padding: 0 1rem 1rem; }
+.list-detail .img-contnr { width: 8rem; height: 8rem; }
+.list-detail .item-name { white-space: nowrap; overflow: hidden; }
+.list-detail .info-prnt { position: relative; }
+.list-detail .item-ic { position: absolute; right: -0.8rem; top: -0.5rem; width: 3.5rem; }
+.list-detail .item-def { margin-left: 0; }
+.list-detail .item-address { margin-bottom: 0; }
+.list-detail .violation-info { margin-left: 30%; margin-top: 3px; }
+.list-detail .insp-icns { text-align: left; }
+.list-detail .insp-icns > li { margin-top: 0; }
+.list-detail .insp-icns > li:first-child { margin-left: 0; }
+.list-detail .loctd-at{ margin-top: 0.5rem; }
+.list-detail .item-address .loctd-at { margin-top: 0; font-style: italic; font-weight: 300italic; margin-left: 5px; }
+.violation-info > p { font-size: 2rem; font-weight: 700; margin-top: 8px; }
 
+/*map page*/
+.map-pg #map-canvas { margin: 0 -1.5rem; }
+.pin-detail { color: #333333; }
 
 @media (min-width: 320px) and (max-width: 640px) {
 	html { font-size: 62.5%; }
 	
-	/*main-page*/
+	/*main page*/
 	.info-prnt { width: 29rem; }
 	.item-info { max-width: 52%; }
 	.contnt-wrppr { width: 100%; }
+	
+	/*list page*/
+	.item-info { max-width: 58%; }
 	
 	/*footer*/
 	.app-nav li { padding: 0 1.16rem; }

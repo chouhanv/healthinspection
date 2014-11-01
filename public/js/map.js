@@ -11,6 +11,8 @@ var searchForLocation = null;
 var mapZoom =11;
 var map = null;
 var markers = new Array();
+var pageType;
+
 
 if (typeof(Number.prototype.toRad) === "undefined") {
   Number.prototype.toRad = function() {
@@ -148,8 +150,47 @@ function addMarkersForResult(results){
 	next();
 }
 
+
+function listForResult(results){
+
+	$(".pg-content").html("");	
+	for(var j = 0; j < results.length; j++){
+		var html = '<div class="no-violationItem list-detail">'
+						+'<div class="clearfix info-prnt">'
+						+	'<span class="item-ic"><img src="' + results[j].map_marker_type + '" alt=""></span>'
+						+	'<div class="item-img">'
+						+		'<div class="img-contnr img-normalviolation" style="border: 0.4rem solid '+results[j].circle_border_color+'">'
+						+			'<img src="/images/item-img.jpg" alt="">'
+						+		'</div>'
+						+		'<span class="loctd-at">'+results[j].demerits+' Demerits</span>'
+						+	'</div>'
+						+	'<div class="item-info">'
+						+		'<p class="item-name">'+results[j].name+'</p>'
+						+		'<p class="item-address">' + results[j].street + ', ' + results[j].city + ' ' + results[j].zip + '<span class="loctd-at">' + ((results[j].distance_from_origin * 1093.61).toFixed(0)) + ' yds </span></p>'
+						+		'<p class="txt-lastInsp">Last Inspection: ' + results[j].last_inspection + '</p>'
+						+		'<div class="violation-info">'
+						+			'<ul class="insp-icns">'
+						+				(results[j].closure == "Yes" ? '<li><img src="/images/ic-closure.png" alt=""></li>' : '')
+						+				(results[j].lifted_closure == "Yes" ?'<li><img src="/images/ic-lifted.png" alt=""></li>' : '')
+						+				(results[j].citation_issued == 1 ?'<li><img src="/images/ic-citation.png" alt=""></li>' : '')
+						+				(results[j].complaint == "Yes" ?'<li><img src="/images/ic-complaint.png" alt=""></li>' : '')
+						+				(results[j].foodborne_illness_investigation == "Yes" ?'<li><img src="/images/ic-investgtn.png" alt=""></li>' : '')
+						+				(results[j].foodborne_illness_lab_confirmed == "Yes" ?'<li><img src="/images/ic-lab.png" alt=""></li>' : '')
+						+				(results[j].corrected_site == "Yes" ?'<li><img src="/images/ic-site.png" alt=""></li>' : '')
+						+				(results[j].trained_manager == "Yes" ?'<li><img src="/images/ic-manager.png" alt=""></li>' : '')
+						+				(results[j].pounds_food_destroyed == "Yes" ?'<li><img src="/images/ic-destroyed.png" alt=""></li>' : '')
+						+			'</ul>'
+						+		'</div>'
+						+	'</div>'
+						+'</div>'
+					+'</div>';
+
+		$(".pg-content").append(html);
+	}
+}
+
 //call api method to get result near by of location
-function searchForResult(){
+function searchForResult(type){
 
 	var request = $.ajax({
       url: "/findrecords/" + range + "/" + originGEO.lat + "/" + originGEO.lng,
@@ -157,7 +198,8 @@ function searchForResult(){
   });
   request.done(function( msg ) {
    if(msg.message == "success"){
-   	addMarkersForResult(msg.results);
+   	if(type == "map") addMarkersForResult(msg.results);
+   	else if(type == "list") listForResult(msg.results);
    } else {
    	alert( "Request failed: ");
    }
@@ -168,8 +210,9 @@ function searchForResult(){
 }
 
 //call to search reasult near by address
-function search(address){
+function search(address, type){
 
+	pageType = type;
 	if(address && address!=null){
 		var request = $.ajax({
         url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address,
@@ -183,8 +226,9 @@ function search(address){
 	          originGEO.lat = lat;
 	          originGEO.lng = lng;
 
-	          initlizeMap();
-	          searchForResult();
+	          if(pageType == "map") initlizeMap();
+
+	          searchForResult(type);
 	    	}
 	    });
 	    request.fail(function(jqXHR, textStatus) {
@@ -209,8 +253,8 @@ function showGEOPosition(position) {
 	originGEO.lat = position.coords.latitude;
 	originGEO.lng = position.coords.longitude;
 
-	initlizeMap();
-	searchForResult();
+	if(pageType=="map") initlizeMap();
+	searchForResult(type);
 }
 
 //usedd by html5 geolocation
@@ -229,6 +273,5 @@ function showGEOError(error) {
 	    errorGEO = "An unknown error occurred."
 	    break;
 	}
-	console.log(errorGEO);
 	return errorGEO;
 }

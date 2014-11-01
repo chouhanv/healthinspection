@@ -23,5 +23,9 @@ module.exports = function routes() {
 
   //inspections controller
   this.get("/getlatestcomment/:id", "inspections#getLatestComment");
-  this.post("/addcomment", "inspections#addComment")
+  this.post("/addcomment", "inspections#addComment");
+
+  //list controller
+
+  this.get("/search/list", "list#search");
 }
