@@ -50,14 +50,14 @@
 					<div class="no-violationItem itm-detail">
 						<div class="clearfix info-prnt">
 							<div class="item-img">
-								<div class="img-contnr img-violation">
+								<div class="img-contnr <%=imgborderclass%>">
 									<img src="/images/item-img.jpg" alt="">
 								</div>
 								<span class="loctd-at">400 yds</span>
 							</div>
 							<div class="item-info">
 								<p class="item-name"><%=data[0].name%></p>
-								<div class="item-type"><span class="item-ic"><img src="/images/ic-restaurant-white.png" alt=""></span><span class="item-def"><%=data[0].type%><span></div>
+								<div class="item-type"><span class="item-ic"><img src="<%=iconurl%>" alt=""></span><span class="item-def"><%=data[0].type%><span></div>
 							<p class="item-address"><%=data[0].street%>, <%=data[0].city%> <%=data[0].zip%></p>
 								<p class="txt-lastInsp">Last Inspection: <%=lastInspection%></p>
 							</div>
