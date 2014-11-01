@@ -53,6 +53,10 @@ pagesController.showDetail = function(req, res){
 					{
 						m = '0'+m;
 					}
+					if(d<10)
+					{
+						d = '0'+d;
+					}
 					var y = formattedDate.getFullYear();
 					var lidate = y + "-" + m + "-" + d;
 		            if(dt != lidate)
@@ -75,8 +79,10 @@ pagesController.showDetail = function(req, res){
 		              	nextRecord();
 		            }  
 
-	            } else {
-
+	            } 
+	            else 
+	            {
+	            	//console.log('resData',resData);
 	              	th.render('pages/detail',{data:data, 
 				lastInspection:monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear(),
 				updatedAt : monthArray[dateObj1.getMonth()] + " " + dateObj1.getDate() + ", " + dateObj1.getFullYear(),
@@ -91,5 +97,18 @@ pagesController.showDetail = function(req, res){
 		}
 	})
 }
+
+pagesController.settings = function(req, res){
+	this.render();
+}
+
+pagesController.help = function(req, res){
+	this.render();
+}
+
+pagesController.complaint = function(req, res){
+	this.render();
+}
+
 
 module.exports = pagesController;

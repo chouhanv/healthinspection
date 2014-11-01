@@ -140,7 +140,7 @@ function addMarkersForResult(results){
         	infoWindowIndex : j //<---Thats the extra attribute
       });
       
-	    var content = "<div class='pin-detail'><h5><a href='/details/"+results[j].id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + results[j].distance_from_origin + " KM</p></div>";
+	    var content = "<div class='pin-detail'><h5><a href='/details/"+results[j].id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + results[j].distance_from_origin + " KM</p><p>Demerits : " + results[j].demerits + " </p></div>";
    		attachSecretMessage(marker, content);
     	next();
     } else {
@@ -150,12 +150,16 @@ function addMarkersForResult(results){
 	next();
 }
 
+function showdetails(id)
+{
+	window.location.href = "/details/"+id;
+}
 
 function listForResult(results){
 
 	$(".pg-content").html("");	
 	for(var j = 0; j < results.length; j++){
-		var html = '<div class="no-violationItem list-detail">'
+		var html = '<div class="no-violationItem list-detail" onclick="showdetails('+results[j].id+')">'
 						+'<div class="clearfix info-prnt">'
 						+	'<span class="item-ic"><img src="' + results[j].map_marker_type + '" alt=""></span>'
 						+	'<div class="item-img">'

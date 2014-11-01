@@ -28,4 +28,12 @@ module.exports = function routes() {
   //list controller
 
   this.get("/search/list", "list#search");
+  //setting controller
+  this.get("/settings", "pages#settings");
+
+  //help controller
+  this.get("/help", "pages#help");
+
+  //complaint controller
+  this.get("/complaint", "pages#complaint");
 }
