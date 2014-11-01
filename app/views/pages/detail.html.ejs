@@ -211,12 +211,15 @@
 	
 	<script>
 		var canvasHeight = $(window).height();
+		var wrapperLeft = ($(window).width() - parseInt($('.wrapper').css('width').replace("px", ""))) / 2;
 		$(document).ready(function(){
 			$('.wrapper').css('height', canvasHeight);
 			$('.wrapper > .container').css('min-height', canvasHeight);
 			$('.contnt-wrppr').css('max-height', canvasHeight);
+			$('.wrapper').css('left', wrapperLeft);
+		});
+		$(document).ready(function(){
 			var items = $("#totalItems").val();
-
 			for(var x = 0; x < items; x++)
 			{
 				$("#span"+x).html($("#hfdemerits"+x).val() + " Demerits");
