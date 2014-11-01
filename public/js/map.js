@@ -140,7 +140,7 @@ function addMarkersForResult(results){
         	infoWindowIndex : j //<---Thats the extra attribute
       });
       
-	    var content = "<div class='pin-detail'><h5><a href='/details/"+results[j]._id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + results[j].distance_from_origin + " KM</p></div>";
+	    var content = "<div class='pin-detail'><h5><a href='/details/"+results[j].id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + results[j].distance_from_origin + " KM</p></div>";
    		attachSecretMessage(marker, content);
     	next();
     } else {
