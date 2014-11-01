@@ -32,7 +32,7 @@
   <body>
   <div class="wrapper">
     <div class="container">
-      <div class="contnt-wrppr">
+      <div class="contnt-wrppr map-pg">
         <div class="header">
           <div class="header-wrppr">
             <div class="header-lft">
@@ -47,10 +47,10 @@
           </div>
         </div>
         <div class="pg-content">
-            <div id="map-canvas" style="height:76%">
-              <div style="margin-top:25%">
-                <img src="/images/loader2.gif">
-              </div>
+    
+            <div id="map-canvas" style="height:76%;">
+          
+
           </div>
         <div class="footer">
           <div class="footer-wrppr">
@@ -73,11 +73,16 @@
   
   <script>
     var canvasHeight = $(window).height();
+	var canvasWidth = $(window).width();
     $(document).ready(function(){
       $('.wrapper').css('height', canvasHeight);
       $('.wrapper > .container').css('min-height', canvasHeight);
       $('.contnt-wrppr').css('max-height', canvasHeight);
       $('#map-canvas').css('height', canvasHeight);
+		if($(window).width() < 900){
+			$('.map-pg').css('width', canvasWidth);
+		}
+	  $('#map-canvas > .gm-style').css('width', canvasWidth);
     })
   </script>
   <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>

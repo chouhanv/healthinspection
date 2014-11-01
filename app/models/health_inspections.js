@@ -16,12 +16,13 @@ module.exports = (function () {
       type : Date,
       default : new Date()
     } , 
+    id : Number,
     type : String , 
     name : String , 
     street : String , 
     city : String , 
     zip : String , 
-    last_inspection : Date , 
+    last_inspection : String , 
     permit_expiration : Date , 
     water_supply : String , 
     septic_system : {
@@ -117,35 +118,41 @@ module.exports = (function () {
             obj.last_inspection = monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
             obj.updatedAt = monthArray[dateObj1.getMonth()] + " " + dateObj1.getDate() + ", " + dateObj1.getFullYear();
 
-
-             if(data.type == "Retail with food prep"){
+             if(data.type == "Retail with food prep")
+             {
                data.type = "retailwithfoodprep";
              }
-             else if(data.type == "Snow cone stand"){
+            else if(data.type == "Snow cone stand")
+            {
                data.type = "snowconestand";
              }
-             else if(data.type == "Farmer's Market"){
+            else if(data.type == "Farmer's Market")
+            {
                data.type = "farmersmarket";
              }
-             else if(data.type == "Long Term/Nursing Home/Assisted Living"){
+            else if(data.type == "Long Term/Nursing Home/Assisted Living")
+            {
                data.type = "ltnhal";
              }
 
             var type = data.type.replace(" ","").toString().toLowerCase();
-
-            if(!isMultipled && obj.oo_compliance == "No Violations Found") {
+            if(!isMultipled && obj.oo_compliance == "No Violations Found")
+{
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
             }
-            else if(data.demerits >= 15 || obj.citation_issued == 1){ 
+            else if(data.demerits >= 15 || obj.citation_issued == 1)
+{
               obj.map_marker_type = "/images/violations/"+ type+ "_red.png";
               obj.circle_border_color = "#990000";
             }
-            else if(obj.demerits < 15 && obj.citation_issued == 0){
-              obj.map_marker_type = "/images/violations/"+ type+ "_yellow.png";
+            else if(obj.demerits < 15 && obj.citation_issued == 0)
+{
+              obj.map_marker_type = "/images/violations/"+ type+"_yellow.png"
               obj.circle_border_color = "#cc9900";
             }
-            else if(isMultipled && obj.oo_compliance == "No Violations Found"){
+            else if(isMultipled && obj.oo_compliance == "No Violations Found")
+{
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
             }
@@ -224,7 +231,6 @@ module.exports = (function () {
                   }
                 }
               });
-
             } else {
               callback(null, finalResult);
             }
@@ -235,72 +241,6 @@ module.exports = (function () {
         callback(null, val);
       }
     });
-
-    // th.find({lat:{"$gt" : minLat, "$lt" : maxLat}, lng:{"$gt" : minLng, "$lt" : maxLng}})
-    // .sort({"id" : 1, 'last_inspection': -1, 'date' : -1})
-    // .exec(function(err, data){
-    //   if(err){
-    //     callback(err, null);
-    //   } else {
-    //     th.find().distinct('type', function(error, types) {
-    //         if(error){
-    //           callback(error, null)
-    //         } else {
-
-    //           var array = new Array(); // storing filtered records
-    //           var R = 6371; // Radius of the earth in km
-    //           var dLat; // lat in radion
-    //           var dLon; // lng in radion
-    //           var distance;
-
-    //           Number.prototype.toRad = function() {
-    //             return this * Math.PI / 180;
-    //           }
-
-    //           for(var x = 0; x < data.length; x++){
-    //             var found = false;
-    //             data[x].total_demerits = 0;
-
-    //             // finding duplicated
-    //             for(var j = 0; j < array.length; j++){
-    //               if(array[j].id == data[x].toJSON().id) {
-    //                 found = true;
-    //                 break;
-    //               }
-    //             }
-    //             if(!found) {
-    //               //adding demerits
-    //               for(var k = 0; k < data.length; k++){
-    //                 if(data[k].toJSON().id == data[x].toJSON().id){
-    //                   data[x].total_demerits += data[k].demerits;
-    //                 }
-    //               }
-
-    //               //map type markers
-    //               if(data[x].oo_compliance == "No Violations Found") data[x].map_marker_type = "green";
-    //               else if(data[x].demerits >= 15 || data[x].citation_issued == 1) data[x].map_marker_type = "red";
-    //               else if(data[x].citation_issued == 0 && data[x].demerits < 15) data[x].map_marker_type = "yellow"
-
-    //               //calculating distance from origin
-    //               //This uses the ‘haversine’ formula to calculate the great-circle distance between two points
-                  
-    //               dLat = (lat-data[x].lat).toRad();
-    //               dLon = (lng-data[x].lng).toRad();
-    //               var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat.toRad()) * Math.cos(data[x].lat.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);
-    //               var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    //               distance = R * c  // Distance in km
-
-    //               data[x].distance_from_origin = distance;
-
-    //               array.push(data[x]);
-    //               console.log(data[x]);
-    //             }
-    //           }
-    //           callback(null, data, types)
-    //         }
-    //     });
-    //   }
-    // });
   }
 
   HealthInspectionsSchema.statics.findOneCleanRecord = function(callback){
@@ -341,6 +281,29 @@ module.exports = (function () {
   HealthInspectionsSchema.statics.findById = function(id, callback){
     console.log(id);
     this.findOne({_id : mongoose.Types.ObjectId(id)}, function(err, data){
+      if(err){
+        callback(err, null);
+      } else {
+
+        callback(null, data);
+      }
+    });
+  }
+
+  HealthInspectionsSchema.statics.findByOtherId = function(id, callback){
+    console.log(id);
+    this.find({id : id}, function(err, data){
+      if(err){
+        callback(err, null);
+      } else {
+
+        callback(null, data);
+      }
+    });
+  }
+
+  HealthInspectionsSchema.statics.findByLastInspectionDate = function(id, dt, callback){
+    this.find({id : id, last_inspection : dt}, function(err, data){
       if(err){
         callback(err, null);
       } else {
