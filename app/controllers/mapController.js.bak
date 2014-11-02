@@ -11,6 +11,7 @@ mapController.findRecords = function(req, res){
 	var lat = parseFloat(th.req.param("lat"));
 	var lng = parseFloat(th.req.param("lng"));
 
+
 	console.log(lat, lng);
 
 	HealthInspections.findByLatLng(lat, lng, range, function(error, data, types){
@@ -18,7 +19,7 @@ mapController.findRecords = function(req, res){
 			console.log(error);
 			th.res.send({message:"Error"});
 		} else {
-			th.res.send({message:"success", types:types, results:data});
+			th.res.send({message:"success", results:data, types:types});
 		}
 	});
 }
@@ -51,49 +52,31 @@ mapController.searchOnMap = function(req,res){
 }
 
 mapController.search = function(req, res){
-
-	var th = this;
-	 HealthInspections.find({}).distinct("type", function(error, types){
-        th.render("pages/map", {address:th.req.param("address"), types:types});
-     });
+	this.render("pages/map", {address:this.req.param("address")});
 }
 
 mapController.getNearestResult = function(req, res){
 	var th = this;
-		var lat = th.req.param("lat");
-		var lng = th.req.param("lng");
-		var type = th.req.param("type");
+	var opt = {
+		lat : th.req.param("lat"),
+		lng : th.req.param("lng"),
+		type : th.req.param("type")
+	}
 
 	var noofresult = th.req.param("noofresult");
 
 	if(noofresult && noofresult > 0){
-		HealthInspections.getNearestResult(parseFloat(lat), parseFloat(lng), type, noofresult, function(error, results){
+		HealthInspections.getNearestResult(opt, noofresult, function(error, result){
 			if(error){
 				console.log(error);
 				th.res.send(200, {message : "Request failed"});
 			} else {
-				th.res.send({message : "success", results : results});
+				th.res.send({message : "success", result : result});
 			}
 		});
 	} else {
 		th.res.send({message : "success", result : "Parameter missing or 0."});
 	}
-}
-
-mapController.getNearestBusiness = function(req,res){
-	var th = this;
-	var business = th.req.param('business');
-	var lat = th.req.param('lat');
-	var lng = th.req.param('lng');
-	console.log("business", business);
-	HealthInspections.findByBusiness(business, parseFloat(lat), parseFloat(lng), function(error, data, types){
-		if(error){
-			console.log(error);
-			th.res.send({message:"Error"});
-		} else {
-			th.res.send({message:"success", types:types, results:data});
-		}
-	});
 }
 
 module.exports = mapController;

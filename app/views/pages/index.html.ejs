@@ -53,8 +53,8 @@
 					</div>
 					<div class="no-violationItem">
 						<p class="txt-noViolation">Nearest Restaurant with No Violations</p>
-						<div class="clearfix info-prnt">
-							<div class="item-img">
+						<div class="clearfix info-prnt nearest-res">
+							<!-- <div class="item-img">
 								<div class="img-contnr">
 									<img src="images/item-img.jpg" alt="">
 								</div>
@@ -65,7 +65,11 @@
 								<div class="item-type"><span class="item-ic"><img src="images/ic-restaurant-white.png" alt=""></span><span class="item-def"><%=record.type%><span></div>
 								<p class="item-address"><%=record.street%> <%=record.city%> - <%=record.zip%></p>
 								<p class="txt-lastInsp">Last Inspection: <%=lastInspection%></p>
-							</div>
+							</div> -->
+
+							<center><div>
+								<img src="/images/loader2.gif">
+							</div></center>
 						</div>
 					</div>
 					<div class="txt-lastUpdt">
@@ -85,10 +89,12 @@
 			$('.wrapper').css('left', wrapperLeft);
        });
     </script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
 	<script src="/js/map.js"></script>
 	<script type="text/javascript">
 		//findNearestResult(1, "Restaurant");
 		findDistanceFromHere('<%=record.lat%>', '<%=record.lng%>', ".loctd-at");
+		findNearestResult(1, "Restaurant");
 	</script>
 </body>
 </html>

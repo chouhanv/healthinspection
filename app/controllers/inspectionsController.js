@@ -29,14 +29,27 @@ inspectionsController.addComment = function(req, res){
 	var obj = {
 		text : th.req.param("text"),
 		email:th.req.param("email"), 
-		subject:th.req.param("subject"),
-		inspection_id:th.req.param("inspection_id"),
-		user_id:10
+		id:th.req.param("id"),
 	}
 
 	Comments.addComment(obj, function(err, data){
-		if(err) {print(err);th.res.send(500,{message:"Failed"});}
-		else th.res.send({message:"success", comment:data});
+		if(err) {
+			print(err);
+			th.res.send(500,{message:"Failed"});
+		}
+		else {
+			// HealthInspections.findOne({_id:th.req.param("_id")}, function(error, data){
+			// 	if(error){
+			// 		console.log(error);
+			// 		th.res.redirect("back");
+			// 	} else if(data) {
+			// 		th.render('pages/complaint',{data:data});
+			// 	} else {
+			// 		th.res.redirect("back");
+			// 	}
+			// });
+			th.redirect("/complaint/"+th.req.param("_id"));
+		}
 	})
 }
 

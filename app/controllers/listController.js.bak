@@ -26,10 +26,7 @@ listController.findRecords = function(req, res){
 
 
 listController.search = function(req, res){
-	var th = this;
-	 HealthInspections.find({}).distinct("type", function(error, types){
-        th.render("pages/list", {address:th.req.param("address"), types:types});
-     });
+	this.render("pages/list", {address:this.req.param("address")});
 }
 
 module.exports = listController;

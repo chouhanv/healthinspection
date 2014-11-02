@@ -16,7 +16,8 @@
     <!-- CSS -->
   <link href="/css/fonts.css" rel="stylesheet">
   <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/switch/bootstrap-switch.css" rel="stylesheet">
   <link href="/css/layout.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -41,8 +42,8 @@
             <div class="header-mid">
               <h1 class="screen-title">Inspection Map</h1>
             </div>
-            <div class="header-rght">
-              <img src="images/btn-share.png" alt="">
+            <div class="header-rght txt-link">
+              <span id="popup-link" data-toggle="modal" data-target=".violation-filter">Filter...</span>
             </div>
           </div>
         </div>
@@ -67,10 +68,61 @@
             </ul>
           </div>
         </div>
+
+        <div class="modal fade violation-filter" tab-index="-1" role="dialog" arailabelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-filter">
+              <div class="violation-optns">
+                <h2 class="filter-title">Select Violation Type</h2>
+                <ul class="optns-list">
+                  <li class="clearfix">
+                    <span class="optn-title">No Violations</span>
+                    <span id="f-1-_green" class="optn-control"><input name="_green" type="checkbox" checked></span>
+                  </li>
+                  <li class="clearfix">
+                    <span class="optn-title">Minor Violations</span>
+                    <span id="f-1-_yellow" class="optn-control"><input name="_yellow" type="checkbox" checked></span>
+                  </li>
+                  <li class="clearfix">
+                    <span class="optn-title">Serious Violations</span>
+                    <span id="f-1-_red" class="optn-control"><input name="_red" type="checkbox" checked></span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="establishment-optns">
+                <h2 class="filter-title">Select Establishment Type</h2>
+                <ul class="optns-list">
+                  <%for(var i=0;i<types.length;i++){%>
+                  <li class="clearfix">
+                    <span class="optn-title"><%=types[i]%></span>
+                    <span class="optn-control" id="f-0-<%=i%>"><input name='<%=types[i].replace(/[^a-zA-Z0-9]/g,'_')%>' type="checkbox" checked></span>
+                  </li>
+                  <%}%>
+                </ul>
+              </div>
+              
+              <div class="filter-btns">
+                <div class="btn btn-main" data-dismiss="modal" data-target="violation-filter">Cancel</div>
+                <div class="btn btn-main" data-dismiss="modal" onclick="filterResults('map');">Filter</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
   
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/switch/highlight.js"></script>
+  <script src="/js/switch/bootstrap-switch.js"></script>
+  <script src="/js/switch/main.js"></script>
+
+
   <script>
     var canvasHeight = $(window).height();
 	var canvasWidth = $(window).width();
@@ -102,12 +154,81 @@
         }
     })
     });
+
+    //switch settings
+    $.fn.bootstrapSwitch.defaults.onText = '';
+    $.fn.bootstrapSwitch.defaults.offText = '';
   </script>
   <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
   <script src="/js/scripts.js"></script>
   <script src="/js/map.js"></script>
   <script type="text/javascript">
     search('<%=address%>', "map");
+
+
+    $('input[name="_green"]').on('switchChange.bootstrapSwitch', function(event, state) {
+        if(state){
+          var index = 0;
+        for(var i = 0; i < filterCategoryType.length; i++){
+          if(filterCategoryType[i] == "_green") index = i;
+        }
+        filterCategoryType.splice(index, 1);
+        } else {
+          filterCategoryType.push("_green");
+        }
+        console.log(filterCategoryType);
+    });
+
+    $('input[name="_yellow"]').on('switchChange.bootstrapSwitch', function(event, state) {
+      if(state){
+          var index = 0;
+        for(var i = 0; i < filterCategoryType.length; i++){
+          if(filterCategoryType[i] == "_yellow") index = i;
+        }
+        filterCategoryType.splice(index, 1);
+        } else {
+          filterCategoryType.push("_yellow");
+        }
+        console.log(filterCategoryType);
+    });
+
+    $('input[name="_red"]').on('switchChange.bootstrapSwitch', function(event, state) {
+      if(state){
+          var index = 0;
+        for(var i = 0; i < filterCategoryType.length; i++){
+          if(filterCategoryType[i] == "_red") index = i;
+        }
+        filterCategoryType.splice(index, 1);
+        } else {
+          filterCategoryType.push("_red");
+        }
+        console.log(filterCategoryType);
+    });
+
+    $('input[name="_green"]').bootstrapSwitch('state', false, false);
+    $('input[name="_yellow"]').bootstrapSwitch('state', false, false);
+    $('input[name="_red"]').bootstrapSwitch('state', false, false);
+
+
+    <% for(var i = 0; i < types.length; i++){%>
+
+      $('input[name="<%=types[i].replace(/[^a-zA-Z0-9]/g,'_')%>"]').on('switchChange.bootstrapSwitch', function(event, state) {
+      if(state){
+          var index = 0;
+        for(var i = 0; i < filterType.length; i++){
+          if(filterType[i] == "<%=types[i].replace(/[^a-zA-Z0-9]/g,'_')%>") index = i;
+        }
+        filterType.splice(index, 1);
+        } else {
+          filterType.push("<%=types[i].replace(/[^a-zA-Z0-9]/g,'_')%>");
+        }
+    });
+
+    $('input[name="<%=types[i].replace(/[^a-zA-Z0-9]/g,'_')%>"]').bootstrapSwitch('state', false, false);
+    filterTypeOptions.push("<%=types[i].replace(/[^a-zA-Z0-9]/g,'_')%>");
+
+    <%}%>
+
   </script>
 </body>
 </html>

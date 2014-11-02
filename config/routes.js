@@ -20,6 +20,7 @@ module.exports = function routes() {
   this.post("/searchOnMap", 'map#searchOnMap');
   this.get("/search", "map#search");
   this.get("/getnearestresult/:noofresult/:lat/:lng/:type", "map#getNearestResult");
+  this.get("/findbusiness/:business/:lat/:lng", "map#getNearestBusiness");
 
   //inspections controller
   this.get("/getlatestcomment/:id", "inspections#getLatestComment");
@@ -35,5 +36,6 @@ module.exports = function routes() {
   this.get("/help", "pages#help");
 
   //complaint controller
-  this.get("/complaint", "pages#complaint");
+  this.get("/complaint/:id", "pages#complaint");
+  this.post("/complaint/:id", "inspections#addComment");
 }

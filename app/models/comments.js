@@ -11,27 +11,20 @@ module.exports = (function () {
   var connection = mongoose.createConnection("mongodb://localhost/harris");
 
   var CommentsSchema = new Schema ({
-  	date : {
-  		type : Date,
-  		default : new Date()
-  	},
-  	inspection_id : {
-  		type: Schema.ObjectId, 
-  		ref: 'HealthInspections'
-  	},
-  	user_id : {
-  		type : String,
-  		default : 10
-  	},
-    subject : {
-      type : String,
-      default : "No Subject"
+    id : {
+      type : Number
+    },
+  	email : {
+      type : String
     },
     text : {
       type : String,
       default : "No Message"
+    },
+    date : {
+      type : Date,
+      default : new Date()
     }
-
   });
 
   CommentsSchema.statics.getLatestComment = function(inspection_id, limit, callback){

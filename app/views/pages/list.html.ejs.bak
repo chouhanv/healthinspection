@@ -148,20 +148,6 @@
 				$('.detail-wrppr > .detail-data').slideUp('slow');
 				$(this).parent().children('.detail-data').slideDown('slow');
 			})
-
-			$('#more-links').click(function(){
-		        if($(this).hasClass('show-more')) {
-		          //$(this).parent().parent().animate().css('left', '0');
-		          $(this).parent().parent().removeClass('shown');
-		          $(this).parent().parent().addClass('not-shown');
-		          $(this).removeClass('show-more');
-		        }else{
-		          //$(this).parent().parent().animate().css('left', '-100px');
-		          $(this).parent().parent().removeClass('not-shown');
-		          $(this).parent().parent().addClass('shown');
-		          $(this).addClass('show-more');
-		        }
-		      })
 		});
 	</script>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
@@ -184,6 +170,22 @@
 	    	}
 	    	console.log(filterCategoryType);
 		});
+
+			$('#more-links').click(function(){
+		        if($(this).hasClass('show-more')) {
+		          //$(this).parent().parent().animate().css('left', '0');
+		          $(this).parent().parent().removeClass('shown');
+		          $(this).parent().parent().addClass('not-shown');
+		          $(this).removeClass('show-more');
+		        }else{
+		          //$(this).parent().parent().animate().css('left', '-100px');
+		          $(this).parent().parent().removeClass('not-shown');
+		          $(this).parent().parent().addClass('shown');
+		          $(this).addClass('show-more');
+		        }
+		      })
+		});
+		
 		$('input[name="_yellow"]').on('switchChange.bootstrapSwitch', function(event, state) {
 		 	if(state){
 	    		var index = 0;
@@ -233,6 +235,6 @@
 		filterTypeOptions.push("<%=types[i].replace(/[^a-zA-Z0-9]/g,'_')%>");
 
 		<%}%>
-	</script>
+  </script>
 </body>
 </html>
