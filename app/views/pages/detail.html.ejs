@@ -51,13 +51,13 @@
 						<div class="clearfix info-prnt">
 							<div class="item-img">
 								<div class="img-contnr <%=imgborderclass%>">
-									<img class="business-img" src="<%=iconurl%>" alt="">
+									<img class="business-img"  src="<%=iconurl%>" alt="">
 								</div>
 								<span class="loctd-at"></span>
 							</div>
 							<div class="item-info">
 								<p class="item-name"><%=data[0].name%></p>
-								<div class="item-type"><span class="item-ic"><img src="<%=iconurl%>" class="icon-url" alt=""></span><span class="item-def"><%=data[0].type%><span></div>
+								<div class="item-type"><span class="item-ic"><img src="<%=iconurl%>"alt=""></span><span class="item-def"><%=data[0].type%><span></div>
 							<p class="item-address"><%=data[0].street%>, <%=data[0].city%> <%=data[0].zip%></p>
 								<p class="txt-lastInsp">Last Insp: <%=lastInspection%></p>
 							</div>
@@ -86,6 +86,28 @@
 									<span class="insp-date"><%= inspData[i].inspectionDate %></span>
 									<span class="demerits" id='span<%= i%>'>40 Demerits</span>
 								</div>
+								<ul class="insp-icns">
+										
+										<li style="display:none" class="ic-closure"><img src="/images/ic-closure.png" alt=""></li>
+										
+										<li style="display:none" class="ic-lifted"><img src="/images/ic-lifted.png" alt=""></li>
+										
+										<li style="display:none" class="ic-citation"><img src="/images/ic-citation.png" alt=""></li>
+										
+										<li style="display:none" class="ic-complaint"><img src="/images/ic-complaint.png" alt=""></li>
+										
+										<li style="display:none" class="ic-investgtn"><img src="/images/ic-investgtn.png" alt=""></li>
+										
+										<li style="display:none" class="ic-lab"><img src="/images/ic-lab.png" alt=""></li>
+										
+										<li style="display:none" class="ic-site"><img src="/images/ic-site.png" alt=""></li>
+										
+										<li style="display:none" class="ic-manager"><img src="/images/ic-manager.png" alt=""></li>
+										
+										<li style="display:none" class="ic-destroyed"><img src="/images/ic-destroyed.png" alt=""></li>
+										
+										<input id="hfdemerits<%=i%>" type="hidden" value="<%=demerits%>"/>
+									</ul>
 								<div id="first-elm" class="detail-data">
 									<ul class="clearfix result data-head">
 										<li class="col1">Violation</li>
@@ -140,23 +162,41 @@
 									<%}%>									
 									<ul class="insp-icns">
 										<% if(Closure != '') { %>
-										<li><img src="/images/ic-closure.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-closure").css("display", "bolck")
+										</script>
 										<% } if(LiftedClosure != '') { %>
-										<li><img src="/images/ic-lifted.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-lifted").css("display", "bolck")
+										</script>
 										<% } if(Citation != '') { %>
-										<li><img src="/images/ic-citation.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-citation").css("display", "bolck")
+										</script>
 										<% } if(Complaint != '') { %>
-										<li><img src="/images/ic-complaint.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-complaint").css("display", "bolck")
+										</script>
 										<% } if(Foodborneillnessinvestigation != '') { %>
-										<li><img src="/images/ic-investgtn.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-investgtn").css("display", "bolck")
+										</script>
 										<% } if(Foodborneillnesslabconfirmed != '') { %>
-										<li><img src="/images/ic-lab.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-lab").css("display", "bolck")
+										</script>
 										<% } if(Correctedsite != '') { %>
-										<li><img src="/images/ic-site.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-site").css("display", "bolck")
+										</script>
 										<% } if(ManagerTrained != '') { %>
-										<li><img src="/images/ic-manager.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-manager").css("display", "bolck")
+										</script>
 										<% } if(Fooddestroyed != '') { %>
-										<li><img src="/images/ic-destroyed.png" alt=""></li>
+										<script type="text/javascript">
+										$(".ic-destroyed").css("display", "bolck")
+										</script>
 										<% } %>
 										<input id="hfdemerits<%=i%>" type="hidden" value="<%=demerits%>"/>
 									</ul>
@@ -254,7 +294,7 @@
 			get_venue_image(venue_id, function(err, image){
 				console.log(image);
 				if(image){
-					$(".icon-url").attr("src", image);
+					$(".business-img").attr("src", image);
 				}
 			});
 		} 

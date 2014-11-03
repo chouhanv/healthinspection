@@ -771,6 +771,8 @@ module.exports = (function () {
   }
 
   HealthInspectionsSchema.statics.getNearestResult = function(lat, lng, type, noofresult, callback){
+    lat = 29.7335616;
+    lng = -95.23021229999999;
     var results = [];
     var dis = 0;
     var th = this;
@@ -786,7 +788,7 @@ module.exports = (function () {
         minLng = lng - degrees;
 
         th.find({lat:{"$gt" : minLat, "$lt" : maxLat}, lng:{"$gt" : minLng, "$lt" : maxLng}, type:type, oo_compliance:"No Violations Found"})
-        .limit(noofresult)
+        .limit(10)
         .exec(function(err, nearestRes){
             results = nearestRes;
             next();

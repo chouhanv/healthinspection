@@ -91,6 +91,7 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
 .txt-link { font-weight: 700; height: 100%; padding: 1.3rem 0; }
 .txt-link > span { display: inline-block; cursor: pointer; padding: 0.5rem 0; }
 .more-databutton { display: block; margin: 0 auto; padding-top: 1rem; text-align: center; display: none; cursor: pointer; }
+.logo-para-name  { border-bottom:0.3rem solid #be1e2d; width:19rem; margin:0 auto; text-align: center; }
   
 /*main page*/
 .app-logo { font-family: Times New Roman, sans-serif; text-align: center; font-weight: bold; color: #3d5867; margin-top: 2rem; }
@@ -111,7 +112,7 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
 .item-img { float: left; text-align: center; }
 .img-contnr { border: 0.4rem solid #009933; border-radius: 50%; height: 12.5rem; overflow: hidden; width: 12.5rem; }
 .img-contnr > img { max-width: 100%; }
-.item-info { float: left; margin-left: 1rem; max-width: 65%; }
+.item-info {float: left; line-height: 1.8;  max-width: 65%;}
 .loctd-at { display: inline-block; font-weight: 700; margin-top: 0.3rem; }
 .item-name { font-size: 1.8rem; font-weight: 700; margin-bottom: 0; }
 .item-address { font-weight: 700; margin-bottom: 0.5rem; }
@@ -157,6 +158,8 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
 .list-detail .loctd-at{ margin-top: 0.5rem; }
 .list-detail .item-address .loctd-at { margin-top: 0; font-weight: 300; font-style: italic; font-weight: 300italic; margin-left: 5px; }
 .violation-info > p { font-size: 2rem; font-weight: 700; margin-top: 8px; }
+.business-img {  width: 13rem; height: 13rem; max-height: 100%; }
+
 
 /*violation-filter popup*/
 .modal-backdrop { max-width: 800px; z-index: 9990; }
@@ -215,6 +218,61 @@ label[for=complaint] { vertical-align: top; }
 /*map page*/
 .map-pg #map-canvas { margin: 0 -1.5rem; }
 .pin-detail { color: #333333; }
+.map-info-window p { color:#428bca; }
+
+
+/* profile page*/
+ .prfl-bg  { background-color:#3b5262; border: 0.4rem solid #ffffff; }
+ .label-clr-small { color: #8aa7b1; font-size: 1rem; font-style: oblique; float:left; width: 5rem; }
+
+ .label-value-large { color: #ffffff; font-size: 1.1rem;}
+ .edit-butn { font-size: 1.3rem; }
+ .chckbox { margin-bottom: 20px; }
+ .label-clr-large { color: #8aa7b1; float: left; font-size: 1.1rem; width: 7rem; }
+ .edit-btn { float:right; }
+.profile-info { float: left; margin-top: 2rem; min-width: 50%; vertical-align: middle; margin-left: 5rem; }
+.profile-img { float: left; vertical-align: middle; margin-left: 2rem;}
+.prfl-name { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;} 
+.profile-wrapper { margin-top: 4rem; padding-left: 4rem; padding-right: 4rem; padding-bottom: 3rem; }
+.profile-detail { margin-top: 4.5rem; }
+.clearfix.profile-detail > div { margin-bottom: 1rem; }
+.profl-chkboxes { margin-top:3rem; }
+.btn-main-prfl {background-color: #528c9c; border: medium none; border-radius: 30px; font-size: 2rem; font-weight: 700; display:block; margin: 0 auto;
+    min-width: 16rem;}
+.profile-para { margin-left: 1rem; }
+.edit-butn { color: #ffffff; }
+.prfl-picc { margin: 1.7rem auto 0; vertical-align: middle; width: 7rem; }
+.label-value-small { font-size: 1.2rem; }
+.edit-butn:hover { color: #dedede; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (min-width: 320px) and (max-width: 640px) {
 	html { font-size: 62.5%; }
@@ -225,7 +283,7 @@ label[for=complaint] { vertical-align: top; }
 	.contnt-wrppr { width: 100%; }
 	
 	/*details page*/
-	.insp-icns { text-indent: 8.5%; }
+	.insp-icns { text-indent: -1.5%; }
 	.insp-icns > li { width: 6.5%; }
 	
 	/*list page*/

@@ -60,27 +60,34 @@ function findNearestResult(results, type){
 	  });
 	  request.done(function( msg ) {
 	   if(msg.message == "success"){
-	   	for(var x = 0; x < msg.results.length; x++){
-	   		var dateObj = new Date(msg.results[x].last_inspection);
-			var dateObj1 = new Date(msg.results[x].date);
-			var date1 = monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
-			var date2 = monthArray[dateObj1.getMonth()] + " " + dateObj1.getDate() + ", " + dateObj1.getFullYear()
-	   		var html = '<div class="item-img">'
-							+'<div class="img-contnr">'
-							+	'<img src="images/item-img.jpg" alt="">'
-							+'</div>'
-							+'<span class="loctd-at"></span>'
-						+'</div>'
-						+'<div class="item-info">'
-							+'<p class="item-name">'+msg.results[x].name+'</p>'
-							+'<div class="item-type"><span class="item-ic"><img src="images/ic-'+msg.results[x].type.toLowerCase()+'-white.png" alt=""></span><span class="item-def">'+msg.results[x].type+'<span></div>'
-							+'<p class="item-address">' +msg.results[x].street+' '+msg.results[x].city+' - '+msg.results[x].zip+'</p>'
-							+'<p class="txt-lastInsp">Last Inspection: '+date1+'</p>'
-						+'</div>';
+	   	var x = Math.floor((Math.random() * 10)-1);
+	   	x = x < 0 ? (x + 5) : x;
+	   		get_venue_id(msg.results[x].name.split("#")[0], msg.results[x].lat+","+msg.results[x].lng, function(err, venue_id){
+	   			get_venue_image(venue_id, function(error, image){
+	   				console.log(image)
+	   				if(!image || image == null)
+	   					image = "/images/violations/"+ msg.results[x].type.replace(" ","").toString().toLowerCase() + "_green.png";
+	   				var dateObj = new Date(msg.results[x].last_inspection);
+					var dateObj1 = new Date(msg.results[x].date);
+					var date1 = monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
+					var date2 = monthArray[dateObj1.getMonth()] + " " + dateObj1.getDate() + ", " + dateObj1.getFullYear()
+			   		var html = '<div class="item-img">'
+									+'<div class="img-contnr">'
+									+	'<img class="business-img" src="'+image+'" alt="">'
+									+'</div>'
+									+'<span class="loctd-at"></span>'
+								+'</div>'
+								+'<div class="item-info">'
+									+'<p class="item-name">'+msg.results[x].name+'</p>'
+									+'<div class="item-type"><span class="item-ic"><img src="images/ic-'+msg.results[x].type.toLowerCase()+'-white.png" alt=""></span><span class="item-def">'+msg.results[x].type+'<span></div>'
+									+'<p class="item-address">' +msg.results[x].street+' '+msg.results[x].city+' - '+msg.results[x].zip+'</p>'
+									+'<p class="txt-lastInsp">Last Inspection: '+date1+'</p>'
+								+'</div>';
 
-			$(".nearest-res").html(html);
-			$(".txt-lastUpdt").html("Last Update: "+date2);
-	   	}
+					$(".nearest-res").html(html);
+					$(".txt-lastUpdt").html("Last Update: "+date2);
+	   			});
+	   		});
 	   } else {
 	   	alert( "Request failed: ");
 	   }
@@ -166,7 +173,7 @@ function addMarkersForResult(){
           type : results[j].type.replace(/[^a-zA-Z0-9]/g,'_')
       });
       
-	    var content = "<h5><a href='/details/"+results[j].id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + results[j].distance_from_origin + " KM</p>";
+	    var content = "<div class='map-info-window'><h5><a href='/details/"+results[j].id+"'>"+results[j].name+"</a></h5><p>Type : "+ results[j].type +"</p><p>Address : "+ results[j].street + ", " + results[j].city + "</p><p>Distance : " + results[j].distance_from_origin + " KM</p></div>";
    		attachSecretMessage(marker, content);
     	next();
     } else {
@@ -257,11 +264,12 @@ function addInList(result, image, callback){
 						+		'<div class="img-contnr img-normalviolation" style="border: 0.4rem solid '+result.circle_border_color+'">'
 						+			'<img class="business-img" src="'+image+'" alt="">'
 						+		'</div>'
-						+		'<span class="loctd-at">'+result.demerits+' Demerits</span>'
+						+		'<span class="loctd-at">'+result.demerits+' Demerits</span><br>'
+						        + '<p class="loctd-at">' +distance+ '</p>'
 						+	'</div>'
 						+	'<div class="item-info">'
 						+		'<p class="item-name">'+result.name+'</p>'
-						+		'<p class="item-address">' + result.street + ', ' + result.city + ' ' + result.zip + '<span class="loctd-at">' +distance+ '</span></p>'
+						+		'<p class="item-address">' + result.street + ', ' + result.city + ' ' + result.zip + '</span></p>'
 						+		'<p class="txt-lastInsp">Last Inspection: ' + result.last_inspection + '</p>'
 						+		'<div class="violation-info">'
 						+			'<ul class="insp-icns">'

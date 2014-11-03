@@ -34,7 +34,7 @@
 		<div class="container">
 			<div class="contnt-wrppr">
 					<div class="app-logo">
-						<p>Harris County</p>
+						<p class="logo-para-name">Harris County</p>
 						<p class="main-txt">HCPHES<span class="btm-txt"><span>Public Health & Environmental Services</span></span></p>
 					</div>
 					<p class="txt-official">Ofﬁcial Health Inspections Search App</p>
@@ -89,13 +89,14 @@
 			$('.wrapper').css('left', wrapperLeft);
        });
     </script>
+   	<script type="text/javascript" src="/js/biz_image.js"></script>
     <script type="text/javascript" src="/js/push.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
 	<script src="/js/map.js"></script>
 	<script type="text/javascript">
 		//findNearestResult(1, "Restaurant");
 		findDistanceFromHere('<%=record.lat%>', '<%=record.lng%>', ".loctd-at");
-		findNearestResult(1, "Restaurant");
+		findNearestResult(10, "Restaurant");
 	</script>
 </body>
 </html>
