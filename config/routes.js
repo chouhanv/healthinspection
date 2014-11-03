@@ -41,4 +41,7 @@ module.exports = function routes() {
   //complaint controller
   this.get("/complaint/:id", "pages#complaint");
   this.post("/complaint/:id", "inspections#addComment");
+
+  //profile page
+  this.get("/profile", "pages#profile");
 }

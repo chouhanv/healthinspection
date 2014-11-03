@@ -186,6 +186,10 @@ pagesController.help = function(req, res){
 	this.render();
 }
 
+pagesController.profile = function(req, res){
+	this.render();
+}
+
 pagesController.complaint = function(req, res){
 	var th = this;
 	HealthInspections.findOne({_id:th.req.param("id")}, function(error, data){

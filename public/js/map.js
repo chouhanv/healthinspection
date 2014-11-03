@@ -255,7 +255,7 @@ function addInList(result, image, callback){
 						+	'<a href="/complaint/'+result._id+'" class="item-ic" style="margin-top:50px;"><img src="/images/ic-bubble.png" height="35px" width="35px" alt=""></a>'
 						+	'<div class="item-img">'
 						+		'<div class="img-contnr img-normalviolation" style="border: 0.4rem solid '+result.circle_border_color+'">'
-						+			'<img width="120px" height="120px" src="'+image+'" alt="">'
+						+			'<img class="business-img" src="'+image+'" alt="">'
 						+		'</div>'
 						+		'<span class="loctd-at">'+result.demerits+' Demerits</span>'
 						+	'</div>'
