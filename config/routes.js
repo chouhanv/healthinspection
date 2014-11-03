@@ -16,11 +16,11 @@ module.exports = function routes() {
 
   //map controller
 
-  this.get("/findrecords/:range/:lat/:lng", "map#findRecords");
+  this.get("/findrecordsformap/:range/:lat/:lng", "map#findRecords");
   this.post("/searchOnMap", 'map#searchOnMap');
   this.get("/search", "map#search");
   this.get("/getnearestresult/:noofresult/:lat/:lng/:type", "map#getNearestResult");
-  this.get("/findbusiness/:business/:lat/:lng", "map#getNearestBusiness");
+  this.get("/findbusinessformap/:business/:lat/:lng", "map#getNearestBusiness");
 
   //inspections controller
   this.get("/getlatestcomment/:id", "inspections#getLatestComment");
@@ -29,6 +29,9 @@ module.exports = function routes() {
   //list controller
 
   this.get("/search/list", "list#search");
+  this.get("/findrecordsforlist/:range/:lat/:lng/:offset", "list#findRecords");
+  this.get("/findbusinessforlist/:business/:lat/:lng/:offset", "list#getNearestBusiness");
+
   //setting controller
   this.get("/settings", "pages#settings");
 

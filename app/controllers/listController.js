@@ -32,4 +32,41 @@ listController.search = function(req, res){
      });
 }
 
+listController.findRecords = function(req, res){
+	var th = this;
+	var range = parseFloat(th.req.param("range"));
+	var lat = parseFloat(th.req.param("lat"));
+	var lng = parseFloat(th.req.param("lng"));
+	var offset = parseInt(th.req.param("offset"));
+
+	console.log(lat, lng);
+
+	HealthInspections.findByLatLngForList(lat, lng, range, offset, function(error, data, types){
+		if(error){
+			console.log(error);
+			th.res.send({message:"Error"});
+		} else {
+			th.res.send({message:"success", types:types, results:data});
+		}
+	});
+}
+
+
+listController.getNearestBusiness = function(req,res){
+	var th = this;
+	var business = th.req.param('business');
+	var lat = th.req.param('lat');
+	var lng = th.req.param('lng');
+	var offset = parseInt(th.req.param("offset"));
+	HealthInspections.findByBusinessForList(business, parseFloat(lat), parseFloat(lng), offset, function(error, data, types){
+		if(error){
+			console.log(error);
+			th.res.send({message:"Error"});
+		} else {
+			th.res.send({message:"success", types:types, results:data});
+		}
+	});
+}
+
+
 module.exports = listController;

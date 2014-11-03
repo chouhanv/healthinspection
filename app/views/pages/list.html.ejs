@@ -48,9 +48,14 @@
 					</div>
 				</div>
 				<div class="pg-content">
-					<center><div style="margin-top:25%">
+					<div class="data-list"></div>
+
+					<center class="loading"><div>
 						<img src="/images/loader2.gif">
 					</div></center>
+					<div class="more-databutton" onclick="search('<%=address%>', 'list')">
+						<span>More</span>
+					</div>
 				</div>
 				<div class="footer">
 					<div class="footer-wrppr">
@@ -118,6 +123,8 @@
 	<script src="/js/switch/highlight.js"></script>
     <script src="/js/switch/bootstrap-switch.js"></script>
     <script src="/js/switch/main.js"></script>
+    <script type="text/javascript" src="/js/biz_image.js"></script>
+    <script type="text/javascript" src="/js/push.js"></script>
 	
 	<script>
 		var canvasHeight = $(window).height();
@@ -213,7 +220,6 @@
 		$('input[name="_green"]').bootstrapSwitch('state', false, false);
 		$('input[name="_yellow"]').bootstrapSwitch('state', false, false);
 		$('input[name="_red"]').bootstrapSwitch('state', false, false);
-
 
 		<% for(var i = 0; i < types.length; i++){%>
 

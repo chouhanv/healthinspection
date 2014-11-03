@@ -51,15 +51,15 @@
 						<div class="clearfix info-prnt">
 							<div class="item-img">
 								<div class="img-contnr <%=imgborderclass%>">
-									<img src="/images/item-img.jpg" alt="">
+									<img src="<%=iconurl%>" height="200px" width="200px" alt="">
 								</div>
-								<span class="loctd-at">400 yds</span>
+								<span class="loctd-at"></span>
 							</div>
 							<div class="item-info">
 								<p class="item-name"><%=data[0].name%></p>
-								<div class="item-type"><span class="item-ic"><img src="<%=iconurl%>" alt=""></span><span class="item-def"><%=data[0].type%><span></div>
+								<div class="item-type"><span class="item-ic"><img src="<%=iconurl%>" class="icon-url" alt=""></span><span class="item-def"><%=data[0].type%><span></div>
 							<p class="item-address"><%=data[0].street%>, <%=data[0].city%> <%=data[0].zip%></p>
-								<p class="txt-lastInsp">Last Inspection: <%=lastInspection%></p>
+								<p class="txt-lastInsp">Last Insp: <%=lastInspection%></p>
 							</div>
 						</div>
 					</div>
@@ -240,9 +240,27 @@
 		    });
 		});
 	</script>
+	<script type="text/javascript" src="/js/biz_image.js"></script>
+    <script type="text/javascript" src="/js/push.js"></script>
 	<script src="/js/map.js"></script>
 	<script type="text/javascript">
 		findDistanceFromHere('<%=data[0].lat%>', '<%=data[0].lng%>', ".loctd-at");
 	</script>
+	<script type="text/javascript">
+
+	get_venue_id('<%=data[0].name%>', '<%=data[0].lat+','+data[0].lng%>', function(err, venue_id){
+		console.log(venue_id);
+		if(venue_id){
+			get_venue_image(venue_id, function(err, image){
+				console.log(image);
+				if(image){
+					$(".icon-url").attr("src", image);
+				}
+			});
+		} 
+	});
+
+	</script>
+
 </body>
 </html>

@@ -81,7 +81,7 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
 
 /*screen global*/
 .contnt-wrppr { overflow-y: scroll; width: 817px; padding-left: 15px; padding-right: 15px; }
-.pg-content { padding: 5rem 0; }
+.pg-content { padding: 5rem 0 6.5rem; }
 .img-contnr.img-violation { border: 0.4rem solid #990000; }
 .img-contnr.img-noviolation { border: 0.4rem solid #009933; }
 .img-contnr.img-normalviolation { border: 0.4rem solid #cc9900; }
@@ -90,6 +90,7 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
 .btn-full { width: 100%; }
 .txt-link { font-weight: 700; height: 100%; padding: 1.3rem 0; }
 .txt-link > span { display: inline-block; cursor: pointer; padding: 0.5rem 0; }
+.more-databutton { display: block; margin: 0 auto; padding-top: 1rem; text-align: center; display: none; cursor: pointer; }
   
 /*main page*/
 .app-logo { font-family: Times New Roman, sans-serif; text-align: center; font-weight: bold; color: #3d5867; margin-top: 2rem; }

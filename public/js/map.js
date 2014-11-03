@@ -19,6 +19,7 @@ var filterCategoryType = [];
 var filterCategoryTypeAll = ['_green', '_yellow', '_red'];
 var monthArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
+var listOffset = -10;
 if (typeof(Number.prototype.toRad) === "undefined") {
   Number.prototype.toRad = function() {
     return this * Math.PI / 180;
@@ -39,8 +40,8 @@ function findDistanceFromHere(lat, lng, target){
 
   function GEOPosition(position) {
 		var distance = distanceCalculator({lat:position.coords.latitude, lng:position.coords.longitude}, {lat:lat, lng:lng});
-		distance = (distance * 1093.61).toFixed(0) //converting km to yd
-		$(distanceTarget).text(distance + " yds");
+		distance = (distance * 1093.61).toFixed(0) > 999 ? (distance + " KM") : ((distance * 1093.61).toFixed(0) + "yds") //converting km to yd
+		$(distanceTarget).text(distance);
 	}
 }
 
@@ -60,7 +61,6 @@ function findNearestResult(results, type){
 	  request.done(function( msg ) {
 	   if(msg.message == "success"){
 	   	for(var x = 0; x < msg.results.length; x++){
-	   		console.log(results);
 	   		var dateObj = new Date(msg.results[x].last_inspection);
 			var dateObj1 = new Date(msg.results[x].date);
 			var date1 = monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
@@ -149,8 +149,6 @@ function addMarkersForResult(){
     	infoWindowIndex : j //<---Thats the extra attribute
   });
 	//result markers
-
-	console.log(results);
 	var next = function(){
     j++;
     if(j<results.length){
@@ -238,7 +236,6 @@ function filterResults(type){
 			var found = false;
 			for(var j = 0; j<filterType.length; j++){
 				if(filterType[j] == filterTypeOptions[i]){
-					console.log(filterTypeOptions[i]);
 					found = true;
 				}			
 			}
@@ -249,45 +246,81 @@ function filterResults(type){
 	}
 }
 
-
-function listForResult(){
-
-	$(".pg-content").html("");	
-	for(var j = 0; j < results.length; j++){
-		var distance = (results[j].distance_from_origin * 1093.61).toFixed(0) > 999 ? (results[j].distance_from_origin + " km") : ((results[j].distance_from_origin * 1093.61).toFixed(0) + " yds");
-		var html = '<div class="no-violationItem list-detail h'+results[j].circle_border_color.replace("#","") + ' '+ results[j].type.replace(/[^a-zA-Z0-9]/g,'_') +'" id="result-'+j+'">'
+function addInList(result, image, callback){
+	if(!image) image = result.map_marker_type;
+	var distance = (result.distance_from_origin * 1093.61).toFixed(0) > 999 ? (result.distance_from_origin + " km") : ((result.distance_from_origin * 1093.61).toFixed(0) + " yds");
+		var html = '<div class="no-violationItem list-detail h'+result.circle_border_color.replace("#","") + ' '+ result.type.replace(/[^a-zA-Z0-9]/g,'_') +'">'
 						+'<div class="clearfix info-prnt">'
-						+	'<span class="item-ic"><img src="' + results[j].map_marker_type + '" alt=""></span>'
-						+	'<a href="/complaint/'+results[j]._id+'" class="item-ic" style="margin-top:50px;"><img src="/images/ic-bubble.png" height="35px" width="35px" alt=""></a>'
+						+	'<span class="item-ic"><img src="' + result.map_marker_type + '" alt=""></span>'
+						+	'<a href="/complaint/'+result._id+'" class="item-ic" style="margin-top:50px;"><img src="/images/ic-bubble.png" height="35px" width="35px" alt=""></a>'
 						+	'<div class="item-img">'
-						+		'<div class="img-contnr img-normalviolation" style="border: 0.4rem solid '+results[j].circle_border_color+'">'
-						+			'<img src="/images/item-img.jpg" alt="">'
+						+		'<div class="img-contnr img-normalviolation" style="border: 0.4rem solid '+result.circle_border_color+'">'
+						+			'<img width="120px" height="120px" src="'+image+'" alt="">'
 						+		'</div>'
-						+		'<span class="loctd-at">'+results[j].demerits+' Demerits</span>'
+						+		'<span class="loctd-at">'+result.demerits+' Demerits</span>'
 						+	'</div>'
 						+	'<div class="item-info">'
-						+		'<p class="item-name">'+results[j].name+'</p>'
-						+		'<p class="item-address">' + results[j].street + ', ' + results[j].city + ' ' + results[j].zip + '<span class="loctd-at">' +distance+ '</span></p>'
-						+		'<p class="txt-lastInsp">Last Inspection: ' + results[j].last_inspection + '</p>'
+						+		'<p class="item-name">'+result.name+'</p>'
+						+		'<p class="item-address">' + result.street + ', ' + result.city + ' ' + result.zip + '<span class="loctd-at">' +distance+ '</span></p>'
+						+		'<p class="txt-lastInsp">Last Inspection: ' + result.last_inspection + '</p>'
 						+		'<div class="violation-info">'
 						+			'<ul class="insp-icns">'
-						+				(results[j].closure == "Yes" ? '<li><img src="/images/ic-closure.png" alt=""></li>' : '')
-						+				(results[j].lifted_closure == "Yes" ?'<li><img src="/images/ic-lifted.png" alt=""></li>' : '')
-						+				(results[j].citation_issued == 1 ?'<li><img src="/images/ic-citation.png" alt=""></li>' : '')
-						+				(results[j].complaint == "Yes" ?'<li><img src="/images/ic-complaint.png" alt=""></li>' : '')
-						+				(results[j].foodborne_illness_investigation == "Yes" ?'<li><img src="/images/ic-investgtn.png" alt=""></li>' : '')
-						+				(results[j].foodborne_illness_lab_confirmed == "Yes" ?'<li><img src="/images/ic-lab.png" alt=""></li>' : '')
-						+				(results[j].corrected_site == "Yes" ?'<li><img src="/images/ic-site.png" alt=""></li>' : '')
-						+				(results[j].trained_manager == "Yes" ?'<li><img src="/images/ic-manager.png" alt=""></li>' : '')
-						+				(results[j].pounds_food_destroyed == "Yes" ?'<li><img src="/images/ic-destroyed.png" alt=""></li>' : '')
+						+				(result.closure == "Yes" ? '<li><img src="/images/ic-closure.png" alt=""></li>' : '')
+						+				(result.lifted_closure == "Yes" ?'<li><img src="/images/ic-lifted.png" alt=""></li>' : '')
+						+				(result.citation_issued == 1 ?'<li><img src="/images/ic-citation.png" alt=""></li>' : '')
+						+				(result.complaint == "Yes" ?'<li><img src="/images/ic-complaint.png" alt=""></li>' : '')
+						+				(result.foodborne_illness_investigation == "Yes" ?'<li><img src="/images/ic-investgtn.png" alt=""></li>' : '')
+						+				(result.foodborne_illness_lab_confirmed == "Yes" ?'<li><img src="/images/ic-lab.png" alt=""></li>' : '')
+						+				(result.corrected_site == "Yes" ?'<li><img src="/images/ic-site.png" alt=""></li>' : '')
+						+				(result.trained_manager == "Yes" ?'<li><img src="/images/ic-manager.png" alt=""></li>' : '')
+						+				(result.pounds_food_destroyed == "Yes" ?'<li><img src="/images/ic-destroyed.png" alt=""></li>' : '')
 						+			'</ul>'
 						+		'</div>'
 						+	'</div>'
 						+'</div>'
 					+'</div>';
+		
+		$(".data-list").append(html);
+		callback();
+}
 
-		$(".pg-content").append(html);
+function listForResult(){
+
+	
+	$(".data-list center").remove();
+	
+	var j = -1;
+
+	function next(){
+		j++;
+		if(j<results.length){
+
+			get_venue_id(results[j].name.split("#")[0], results[j].lat+","+results[j].lng, function(err, venue_id){
+				if(venue_id){
+					get_venue_image(venue_id, function(err, image){
+						if(image){
+							addInList(results[j], image, function(){
+								next();
+							});
+						} else {
+							addInList(results[j], null, function(){
+								next();
+							});
+						}
+					});
+				} else {
+					addInList(results[j], null, function(){
+						next();
+					});
+				}
+			});
+		} else {
+			$(".loading").css("display","none");
+			$(".more-databutton").css("display","block");
+		}
+		
 	}
+	next();
 }
 
 //call api method to get result near by of location
@@ -295,9 +328,25 @@ function searchForResult(){
 
 	var url;
 	if(!business)
-		url = "/findrecords/" + range + "/" + originGEO.lat + "/" + originGEO.lng;
+		if(pageType == "list"){
+			listOffset = listOffset+10;
+			url = "/findrecordsforlist/" + range + "/" + originGEO.lat + "/" + originGEO.lng+"/"+listOffset;
+			$(".loading").css("display","block");
+			$(".more-databutton").css("display","none");
+		}
+		else
+			url = "/findrecordsformap/" + range + "/" + originGEO.lat + "/" + originGEO.lng;
 	else
-		url = "/findbusiness/"+business+"/" + originGEO.lat + "/" + originGEO.lng;
+		if(pageType == "list"){
+			listOffset = listOffset+10;
+			url = "/findbusinessforlist/"+business+"/" + originGEO.lat + "/" + originGEO.lng+"/"+listOffset;
+			
+			$(".loading").css("display","block");
+			$(".more-databutton").css("display","none");
+		}
+			
+		else
+			url = "/findbusinessformap/"+business+"/" + originGEO.lat + "/" + originGEO.lng;
 
 	var request = $.ajax({
 	  url: url,
@@ -306,7 +355,6 @@ function searchForResult(){
   request.done(function( msg ) {
    if(msg.message == "success"){
    	results = msg.results;
-   	console.log(results, pageType);
    	if(pageType == "map") addMarkersForResult();
    	else if(pageType == "list") listForResult();
    } else {
@@ -349,10 +397,20 @@ function search(address, type){
 			if(pageType == "map") 
 				initlizeMap();
 
-		    getUserLocation();
+		    if(!originGEO.lat || !originGEO.lng)
+			getUserLocation();
+			else {
+				if(pageType=="map") initlizeMap();
+				searchForResult();
+			}
 		}
 	} else {
-		getUserLocation();
+		if(!originGEO.lat || !originGEO.lng)
+			getUserLocation();
+		else {
+			if(pageType=="map") initlizeMap();
+			searchForResult();
+		}
 	}
 }
 

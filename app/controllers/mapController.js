@@ -13,7 +13,7 @@ mapController.findRecords = function(req, res){
 
 	console.log(lat, lng);
 
-	HealthInspections.findByLatLng(lat, lng, range, function(error, data, types){
+	HealthInspections.findByLatLngForMap(lat, lng, range, function(error, data, types){
 		if(error){
 			console.log(error);
 			th.res.send({message:"Error"});
@@ -86,7 +86,7 @@ mapController.getNearestBusiness = function(req,res){
 	var lat = th.req.param('lat');
 	var lng = th.req.param('lng');
 	console.log("business", business);
-	HealthInspections.findByBusiness(business, parseFloat(lat), parseFloat(lng), function(error, data, types){
+	HealthInspections.findByBusinessForMap(business, parseFloat(lat), parseFloat(lng), function(error, data, types){
 		if(error){
 			console.log(error);
 			th.res.send({message:"Error"});
