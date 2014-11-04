@@ -302,6 +302,62 @@ label[for=complaint] { vertical-align: top; }
 	/*complaint page*/
 	.complaint-item { margin: 0 -1.5rem; }
 	.form-right { padding-right: 0; }
+
+
+    /*.nav-itms { -moz-animation: more-links 700ms 1 linear 0 forwards; animation: more-links 700ms 1 linear 0 forwards; }*/
+.shown { -moz-animation: more-links 1s forwards; -webkit-animation: more-links 1s forwards; -o-animation: more-links 1s forwards; animation: more-links 1s forwards; }
+.not-shown { -moz-animation: less-links 1s forwards; -webkit-animation: less-links 1s forwards; -o-animation: less-links 1s forwards; animation: less-links 1s forwards; }
+@-o-keyframes more-links {
+	0% { left: 0; }
+	100% { left: -26rem; }
+}
+@-webkit-keyframes more-links {
+	0% { left: 0; }
+	100% { left: -26rem; }
+}
+@-moz-keyframes more-links {
+	0% { left: 0; }
+	100% { left: -26rem; }
+}
+@keyframes more-links {
+	0% { left: 0; }
+	100% { left: -26rem; }
+}
+
+@-o-keyframes less-links {
+	0% { left: -26rem; }
+	100% { left: 0rem; }
+}
+@-webkit-keyframes less-links {
+	0% { left: -26rem; }
+	100% { left: 0rem; }
+}
+@-moz-keyframes less-links {
+	0% { left: -26rem; }
+	100% { left: 0rem; }
+}
+@keyframes less-links {
+	0% { left: -26rem; }
+	100% { left: 0rem; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 @media (min-width: 768px) and (max-width: 1024px){
