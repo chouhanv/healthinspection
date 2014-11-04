@@ -90,11 +90,11 @@ function findNearestResult(results, type){
 	   			});
 	   		});
 	   } else {
-	   	alert( "Request failed: ");
+	   	//alert( "Request failed: ");
 	   }
 	  });
 	  request.fail(function( jqXHR, textStatus ) {
-	    alert( "Request failed: ");
+	    //alert( "Request failed: ");
 	  });
 	}
 }
@@ -372,11 +372,11 @@ function searchForResult(){
    	if(pageType == "map") addMarkersForResult();
    	else if(pageType == "list") listForResult();
    } else {
-   	alert( "Request failed: ");
+   	//alert( "Request failed: ");
    }
   });
   request.fail(function( jqXHR, textStatus ) {
-    alert( "Request failed: ");
+    //alert( "Request failed: ");
   });
 }
 
