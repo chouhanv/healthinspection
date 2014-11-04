@@ -67,8 +67,6 @@ module.exports = (function () {
       console.log(result);
     });
   }
-
-
     HealthInspectionsSchema.statics.findByBusinessForList = function(business, lat, lng, offset, callback){
 
     
@@ -186,7 +184,6 @@ module.exports = (function () {
               nextRecord();
             }
             else if(recordNo < val.length && recordNo < (offset+10)){
-              console.log("length", val.length);
               th.find({id:val[recordNo]})
               .sort({"date":-1})
               .exec(function(err, similarRecords){
@@ -444,7 +441,6 @@ module.exports = (function () {
 
     th.find({lat:{"$gt" : minLat, "$lt" : maxLat}, lng:{"$gt" : minLng, "$lt" : maxLng}})
     .distinct("id", function(error, val){
-      console.log(val);
       if(error){
         callback(error, null);
       } else if(val.length > 0){
@@ -791,8 +787,7 @@ module.exports = (function () {
   }
 
   HealthInspectionsSchema.statics.getNearestResult = function(lat, lng, type, noofresult, callback){
-    lat = 29.7335616;
-    lng = -95.23021229999999;
+
     var results = [];
     var dis = 0;
     var th = this;
