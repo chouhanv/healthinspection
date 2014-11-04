@@ -265,7 +265,7 @@ function addInList(result, image, callback){
 		var html = '<div class="no-violationItem list-detail h'+result.circle_border_color.replace("#","") + ' '+ result.type.replace(/[^a-zA-Z0-9]/g,'_') +'" onclick="showdetails('+result.id+')">'
 						+'<div class="clearfix info-prnt">'
 						+	'<span class="item-ic"><img src="' + result.map_marker_type + '" alt=""></span>'
-						+	'<a href="/complaint/'+result._id+'" class="item-ic" style="margin-top:50px;"><img src="/images/ic-bubble.png" height="35px" width="35px" alt=""></a>'
+						+	'<a href="/complaint/'+result.id+'" class="item-ic" style="margin-top:50px;"><img src="/images/ic-bubble.png" height="35px" width="35px" alt=""></a>'
 						+	'<div class="item-img">'
 						+		'<div class="img-contnr img-normalviolation" style="border: 0.4rem solid '+result.circle_border_color+'">'
 						+			'<img class="business-img" src="'+image+'" alt="">'
