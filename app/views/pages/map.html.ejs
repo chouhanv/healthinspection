@@ -132,6 +132,11 @@
       $('.wrapper > .container').css('min-height', canvasHeight);
       $('.contnt-wrppr').css('max-height', canvasHeight);
       $('.wrapper').css('left', wrapperLeft);
+      $('#popup-link').click(function(){
+        $('.modal-backdrop').css('left', wrapperLeft);
+        $('.modal-backdrop').css('position', "relative");
+        setTimeout(function(){$('.modal-backdrop').css('position', "relative");}, 1);
+      });
     });
     $(document).ready(function(){
       $('#map-canvas').css('height', canvasHeight);

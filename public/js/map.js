@@ -62,11 +62,11 @@ function findNearestResult(results, type){
 	   if(msg.message == "success"){
 	   	var x = Math.floor((Math.random() * 10)-1);
 	   	x = x < 0 ? (x + 5) : x;
+
 	   		get_venue_id(msg.results[x].name.split("#")[0], msg.results[x].lat+","+msg.results[x].lng, function(err, venue_id){
 	   			get_venue_image(venue_id, function(error, image){
-	   				console.log(image)
 	   				if(!image || image == null)
-	   					image = "/images/violations/"+ msg.results[x].type.replace(" ","").toString().toLowerCase() + "_green.png";
+	   					image = "/images/business-icons/"+ msg.results[x].type.replace(" ","").toString().toLowerCase() + "_green.png";
 	   				var dateObj = new Date(msg.results[x].last_inspection);
 					var dateObj1 = new Date(msg.results[x].date);
 					var date1 = monthArray[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
@@ -75,13 +75,14 @@ function findNearestResult(results, type){
 									+'<div class="img-contnr">'
 									+	'<img class="business-img" src="'+image+'" alt="">'
 									+'</div>'
+									+'<span class="loctd-at">14102.39 KM</span>'
 									+'<span class="loctd-at"></span>'
 								+'</div>'
 								+'<div class="item-info">'
 									+'<p class="item-name">'+msg.results[x].name+'</p>'
 									+'<div class="item-type"><span class="item-ic"><img src="images/ic-'+msg.results[x].type.toLowerCase()+'-white.png" alt=""></span><span class="item-def">'+msg.results[x].type+'<span></div>'
 									+'<p class="item-address">' +msg.results[x].street+' '+msg.results[x].city+' - '+msg.results[x].zip+'</p>'
-									+'<p class="txt-lastInsp">Last Inspection: '+date1+'</p>'
+									+'<p class="txt-lastInsp">Last Insp: '+date1+'</p>'
 								+'</div>';
 
 					$(".nearest-res").html(html);
@@ -259,7 +260,7 @@ function showdetails(id)
 }
 
 function addInList(result, image, callback){
-	if(!image) image = result.map_marker_type;
+	if(!image) image = result.business_icon;
 	var distance = (result.distance_from_origin * 1093.61).toFixed(0) > 999 ? (result.distance_from_origin + " km") : ((result.distance_from_origin * 1093.61).toFixed(0) + " yds");
 		var html = '<div class="no-violationItem list-detail h'+result.circle_border_color.replace("#","") + ' '+ result.type.replace(/[^a-zA-Z0-9]/g,'_') +'" onclick="showdetails('+result.id+')">'
 						+'<div class="clearfix info-prnt">'
@@ -275,7 +276,7 @@ function addInList(result, image, callback){
 						+	'<div class="item-info">'
 						+		'<p class="item-name">'+result.name+'</p>'
 						+		'<p class="item-address">' + result.street + ', ' + result.city + ' ' + result.zip + '</span></p>'
-						+		'<p class="txt-lastInsp">Last Inspection: ' + result.last_inspection + '</p>'
+						+		'<p class="txt-lastInsp">Last Insp: ' + result.last_inspection + '</p>'
 						+		'<div class="violation-info">'
 						+			'<ul class="insp-icns">'
 						+				(result.closure == "Yes" ? '<li><img src="/images/ic-closure.png" alt=""></li>' : '')

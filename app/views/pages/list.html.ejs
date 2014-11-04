@@ -137,8 +137,10 @@
 			$('.wrapper').css('left', wrapperLeft);
 			$('#popup-link').click(function(){
 				$('.modal-backdrop').css('left', wrapperLeft);
-			})
-		})
+				$('.modal-backdrop').css('position', "relative");
+				setTimeout(function(){$('.modal-backdrop').css('position', "relative");}, 1);
+			});
+		});
 		
 		//switch settings
 		$.fn.bootstrapSwitch.defaults.onText = '';

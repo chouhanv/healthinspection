@@ -48,6 +48,7 @@ pagesController.showDetail = function(req, res){
 			var iconurl = '';
 			var icon_color = '';
 			var imgborderclass = '';
+			var business_icon = '';
           	function nextRecord(){
 	            i++;
 	            if(i < data.length){
@@ -124,18 +125,21 @@ pagesController.showDetail = function(req, res){
 							iconurl = "/images/violations/"+ data[0].icontype + "_green.png";
 							icon_color = '#009933';
 							imgborderclass = 'img-noviolation';
+							business_icon = "/images/business-icons/"+ data[0].icontype+ "_green.png";
 	            		}
 	            		else if(data[0].oo_compliance == "Yes" && parseInt(data[0].demerits) > 15)
 	            		{
 	            			iconurl = "/images/violations/"+ data[0].icontype + "_red.png";
 	            			icon_color = '#990000';
 	            			imgborderclass = 'img-violation';
+	            			business_icon = "/images/business-icons/"+ data[0].icontype+ "_red.png";
 	            		}
 	            		else
 	            		{
 	            			iconurl = "/images/violations/"+ data[0].icontype + "_yellow.png";
 	            			icon_color = '#cc9900';
 	            			imgborderclass = 'img-normalviolation';
+	            			business_icon = "/images/business-icons/"+ data[0].icontype+ "_yellow.png";
 	            		}
 	            	}
 	            	else
@@ -146,18 +150,21 @@ pagesController.showDetail = function(req, res){
 			            	iconurl = "/images/violations/"+ data[0].icontype + "_red.png";
 	            			icon_color = '#990000';
 	            			imgborderclass = 'img-violation';
+	            			business_icon = "/images/business-icons/"+ data[0].icontype+ "_red.png";
 			            }
 			            else if(parseInt(dm) < 15 && citation_issued == 0)
 			            {
 				            iconurl = "/images/violations/"+ data[0].icontype + "_yellow.png";
 	            			icon_color = '#cc9900';
 	            			imgborderclass = 'img-normalviolation';
+	            			business_icon = "/images/business-icons/"+ data[0].icontype+ "_yellow.png";
 			            }
 			            else
 			            {
 			            	iconurl = "/images/violations/"+ data[0].icontype + "_green.png";
 							icon_color = '#009933';
 							imgborderclass = 'img-noviolation';
+							business_icon = "/images/business-icons/"+ data[0].icontype+ "_green.png";
 			            }
 	            	}	            	
 	              	th.render('pages/detail',{data:data, 
@@ -166,7 +173,8 @@ pagesController.showDetail = function(req, res){
 						inspData : resData,
 						iconurl : iconurl,
 						iconcolor : icon_color,
-						imgborderclass : imgborderclass
+						imgborderclass : imgborderclass,
+						business_icon:business_icon
 			});
 	            }
 	          }
@@ -175,7 +183,7 @@ pagesController.showDetail = function(req, res){
 		} else {
 			th.res.redirect("back");
 		}
-	})
+	});
 }
 
 pagesController.settings = function(req, res){
@@ -247,30 +255,32 @@ pagesController.complaint = function(req, res){
             {
                data.type = "ltnhal";
              }
+
             var type = data.type.replace(" ","").toString().toLowerCase();
             if(!isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else if(data.demerits >= 15 || obj.citation_issued == 1){
               obj.map_marker_type = "/images/violations/"+ type+ "_red.png";
               obj.circle_border_color = "#990000";
-            }
-            else if(obj.demerits == 0){
-            	obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
-              	obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_red.png";
             }
             else if(obj.demerits < 15 && obj.citation_issued == 0){
               obj.map_marker_type = "/images/violations/"+ type+"_yellow.png"
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             else if(isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else {
               obj.map_marker_type = "/images/violations/"+ type+ "_yellow.png";
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             callback(obj);
           }

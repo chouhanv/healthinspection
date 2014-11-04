@@ -140,22 +140,27 @@ module.exports = (function () {
             if(!isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else if(data.demerits >= 15 || obj.citation_issued == 1){
               obj.map_marker_type = "/images/violations/"+ type+ "_red.png";
               obj.circle_border_color = "#990000";
+              obj.business_icon = "/images/business-icons/"+ type+ "_red.png";
             }
             else if(obj.demerits < 15 && obj.citation_issued == 0){
               obj.map_marker_type = "/images/violations/"+ type+"_yellow.png"
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             else if(isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else {
               obj.map_marker_type = "/images/violations/"+ type+ "_yellow.png";
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             callback(obj);
           }
@@ -319,22 +324,27 @@ module.exports = (function () {
             if(!isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else if(data.demerits >= 15 || obj.citation_issued == 1){
               obj.map_marker_type = "/images/violations/"+ type+ "_red.png";
               obj.circle_border_color = "#990000";
+              obj.business_icon = "/images/business-icons/"+ type+ "_red.png";
             }
             else if(obj.demerits < 15 && obj.citation_issued == 0){
               obj.map_marker_type = "/images/violations/"+ type+"_yellow.png"
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             else if(isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else {
               obj.map_marker_type = "/images/violations/"+ type+ "_yellow.png";
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             callback(obj);
           }
@@ -488,22 +498,27 @@ module.exports = (function () {
             if(!isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else if(data.demerits >= 15 || obj.citation_issued == 1){
               obj.map_marker_type = "/images/violations/"+ type+ "_red.png";
               obj.circle_border_color = "#990000";
+              obj.business_icon = "/images/business-icons/"+ type+ "_red.png";
             }
             else if(obj.demerits < 15 && obj.citation_issued == 0){
               obj.map_marker_type = "/images/violations/"+ type+"_yellow.png"
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             else if(isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else {
               obj.map_marker_type = "/images/violations/"+ type+ "_yellow.png";
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             callback(obj);
           }
@@ -663,22 +678,27 @@ module.exports = (function () {
             if(!isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else if(data.demerits >= 15 || obj.citation_issued == 1){
               obj.map_marker_type = "/images/violations/"+ type+ "_red.png";
               obj.circle_border_color = "#990000";
+              obj.business_icon = "/images/business-icons/"+ type+ "_red.png";
             }
             else if(obj.demerits < 15 && obj.citation_issued == 0){
               obj.map_marker_type = "/images/violations/"+ type+"_yellow.png"
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             else if(isMultipled && obj.oo_compliance == "No Violations Found"){
               obj.map_marker_type = "/images/violations/"+ type+ "_green.png";
               obj.circle_border_color = "#009933";
+              obj.business_icon = "/images/business-icons/"+ type+ "_green.png";
             }
             else {
               obj.map_marker_type = "/images/violations/"+ type+ "_yellow.png";
               obj.circle_border_color = "#cc9900";
+              obj.business_icon = "/images/business-icons/"+ type+ "_yellow.png";
             }
             callback(obj);
           }

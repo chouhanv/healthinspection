@@ -19,6 +19,7 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
   background: -o-linear-gradient(to bottom , #518a9a ,  #4e8292); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(to bottom , #518a9a ,  #4e8292); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom , #518a9a ,  #4e8292); /* Standard syntax */}
+ .logo { margin: 0 auto; }
 .header-wrppr { position: relative; height: 100%; }
 .header-lft { position: absolute; top: 0; left: 0; width: 5rem; padding: 1rem; }
 .header-lft > img { max-width: 100%; cursor: pointer; }
@@ -94,29 +95,29 @@ h1, .h1, h2, .h2 { font-family: 'PT Sans', sans-serif; }
 .logo-para-name  { border-bottom:0.3rem solid #be1e2d; width:19rem; margin:0 auto; text-align: center; }
   
 /*main page*/
-.app-logo { font-family: Times New Roman, sans-serif; text-align: center; font-weight: bold; color: #3d5867; margin-top: 2rem; }
+.app-logo {margin-bottom: 3rem; font-family: Times New Roman, sans-serif; text-align: center; font-weight: bold; color: #3d5867; margin-top: 2rem; }
 .app-logo > p { margin-bottom: 0; }
 .main-txt { font-size: 4rem; margin-top: -0.7rem; }
 .btm-txt { display: block; font-size: 1.4rem; margin-top: -1rem; }
 .btm-txt > span { border-top: 0.3rem solid #be1e2d; }
 .txt-official { font-size: 1.8rem; font-style: italic; margin: 2.5rem 0; text-align: center; }
 .search-block { text-align: center; border-bottom: 0.1rem solid #ffffff; padding-bottom: 1.5rem; }
-.txt-search { font-weight: 700; margin-bottom: 0.2rem; }
+.txt-search { font-weight: 700; margin-bottom: 1.2rem; }
 .search-box { border: medium none; border-radius: 15px; color: #3d5867; height: 4rem; padding-left: 5px; width: 20rem; float: left; }
 .srch-elem { margin: 0 auto; width: 25rem; }
 .btn-go { background-color: #528c9c; border: medium none; font-size: 2.0rem; font-weight: 700; border-radius: 50%; margin-left: 7px; padding: 0.6rem 0.8rem; float: left; }
-.txt-or { display: block; font-weight: bold; margin: 2.5rem 0; }
+.txt-or { display: block; font-weight: bold; margin: 1.5rem 0; }
 .no-violationItem { margin-top: 4.0rem; }
 .txt-noViolation { font-size: 1.8rem; font-style: italic; text-align: center; margin-bottom: 2.5rem; }
 .info-prnt { margin: 0 auto; width: 40rem; }
 .item-img { float: left; text-align: center; }
 .img-contnr { border: 0.4rem solid #009933; border-radius: 50%; height: 12.5rem; overflow: hidden; width: 12.5rem; }
 .img-contnr > img { max-width: 100%; }
-.item-info {float: left; line-height: 1.8;  max-width: 65%;}
+.item-info {float: left; line-height: 1.8;  max-width: 65%; margin-left:1.4rem; }
 .loctd-at { display: inline-block; font-weight: 700; margin-top: 0.3rem; }
 .item-name { font-size: 1.8rem; font-weight: 700; margin-bottom: 0; }
 .item-address { font-weight: 700; margin-bottom: 0.5rem; }
-.txt-lastInsp { font-weight: 700; margin-bottom: 0; }
+.txt-lastInsp { font-weight: 700; margin-bottom: 0; font-size:1.34rem; }
 .txt-lastUpdt { font-weight: 700; margin: 4rem 0 2rem; text-align: center; }
 .item-ic { display: inline-block; height: auto; vertical-align: middle; width: 2.5rem; }
 .item-ic > img { max-width: 100%; }
