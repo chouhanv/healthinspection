@@ -253,10 +253,15 @@ function filterResults(type){
 	}
 }
 
+function showdetails(id)
+{
+	window.location.href = "/details/"+id;
+}
+
 function addInList(result, image, callback){
 	if(!image) image = result.map_marker_type;
 	var distance = (result.distance_from_origin * 1093.61).toFixed(0) > 999 ? (result.distance_from_origin + " km") : ((result.distance_from_origin * 1093.61).toFixed(0) + " yds");
-		var html = '<div class="no-violationItem list-detail h'+result.circle_border_color.replace("#","") + ' '+ result.type.replace(/[^a-zA-Z0-9]/g,'_') +'">'
+		var html = '<div class="no-violationItem list-detail h'+result.circle_border_color.replace("#","") + ' '+ result.type.replace(/[^a-zA-Z0-9]/g,'_') +'" onclick="showdetails('+result.id+')">'
 						+'<div class="clearfix info-prnt">'
 						+	'<span class="item-ic"><img src="' + result.map_marker_type + '" alt=""></span>'
 						+	'<a href="/complaint/'+result._id+'" class="item-ic" style="margin-top:50px;"><img src="/images/ic-bubble.png" height="35px" width="35px" alt=""></a>'
